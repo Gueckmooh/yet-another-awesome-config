@@ -189,6 +189,7 @@ theme.arrows.color = {}
 theme.arrows.color[1] = "#777E76"
 theme.arrows.color[2] = "#8DAA9A"
 theme.arrows.color[3] = "#b23998"
+theme.arrows.color[4] = "#CB755B"
 
 -- theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
 
@@ -411,6 +412,38 @@ pulse_widget:connect_signal("mouse::leave", function()
 -------------------- {{{ End Pulse Audio }}} -----------------------------------
 
 
+-------------------- {{{ Heat }}} ----------------------------------------------
+-- bash -c "acpi -t | sed 's/.* \([0-9]*\)\.[0-9]* .*/\1/'"
+local temp = {}
+
+temp.icon = wibox.widget.imagebox (theme.widget_temp)
+temp.text = awful.widget.watch (
+    "bash -c \"acpi -t | sed 's/.* \\([0-9]*\\)\\.[0-9]* .*/\\1/'\"",
+    10,
+    function (widget, stdout)
+        local temperature = tonumber (stdout)
+        local color = theme.fg_normal
+        if temperature >= 80 then
+            color = "#ff0000"
+        end
+        widget:set_markup(markup.fontfg(theme.font, color,
+                                        tostring (temperature) .. "°C"))
+    end
+)
+
+local temp_widget = wibox.widget {
+    temp.icon,
+    {
+        temp.text,
+        left = dpi(4),
+        right = dpi(4),
+        widget = wibox.container.margin,
+    },
+    layout = wibox.layout.align.horizontal,
+}
+
+-------------------- {{{ End Heat }}} ------------------------------------------
+
 function theme.set_wallpaper(s)
     -- Wallpaper
     if theme.wallpaper then
@@ -464,13 +497,24 @@ theme.at_screen_connect = function (s)
             wibox.widget.systray(),
 
             --------------------------------------------------------------------
-            arrow("alpha", theme.arrows.color[3]),
-            wibox.container.background(pulse_widget, theme.arrows.color[3]),
+            arrow("alpha", theme.arrows.color[4]),
+            wibox.container.background(
+                wibox.container.margin (temp_widget, 3, 3),
+                theme.arrows.color[4]),
+            --------------------------------------------------------------------
+
+            --------------------------------------------------------------------
+            arrow(theme.arrows.color[4], theme.arrows.color[3]),
+            wibox.container.background(
+                wibox.container.margin (pulse_widget, 3, 3),
+                theme.arrows.color[3]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
             arrow(theme.arrows.color[3], theme.arrows.color[2]),
-            wibox.container.background(battery_widget, theme.arrows.color[2]),
+            wibox.container.background(
+                wibox.container.margin (battery_widget, 3, 3),
+                theme.arrows.color[2]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
