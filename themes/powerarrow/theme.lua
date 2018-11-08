@@ -184,6 +184,12 @@ theme.titlebar_maximized_button_normal_active   = theme.dir .. "/icons/titlebar/
 theme.titlebar_maximized_button_focus_inactive  = theme.dir .. "/icons/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_inactive = theme.dir .. "/icons/titlebar/maximized_normal_inactive.png"
 
+theme.arrows = {}
+theme.arrows.color = {}
+theme.arrows.color[1] = "#777E76"
+theme.arrows.color[2] = "#8DAA9A"
+theme.arrows.color[3] = "#b23998"
+
 -- theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
 
 -- Define the icon theme for application icons. If not set then the icons
@@ -302,6 +308,108 @@ battery_widget:connect_signal("mouse::leave", function()
                                   naughty.destroy(battery_notification) end)
 -------------------- {{{ End Battery }}} ---------------------------------------
 
+-------------------- {{{ Pulse Audio }}} ---------------------------------------
+local pulse = {}
+
+function pulse.get_current_sink ()
+    local pfile = io.popen ("pacmd list-sinks | awk '/  \\* index\\: ./ {y=\"oui\";next} y==\"oui\" {print;exit}' | sed 's/^.*name\\: <\\(.*\\)>.*$/\\1/'")
+    local line = pfile:read "*l"
+    pfile:close ()
+    return line
+end
+
+function pulse.get_name ()
+    local pfile = io.popen (
+        "pacmd list-sinks | awk '/" ..
+            pulse.get_current_sink () ..
+            "/ {y=1;next} y && /active port/ {print;exit}' |"..
+            " sed 's/.*<\\(.*\\)>/\\1/' | sed 's/-/ /g'")
+    local line = pfile:read "*l"
+    pfile:close ()
+    return line
+end
+
+local pulse_notification
+function pulse.show_status()
+    awful.spawn.easy_async(
+        "bash -c \"pacmd list-sinks | awk \\\"/" ..
+            "$(pacmd list-sinks | awk '/  \\* index\\: ./ {y=1;next} y==1 {print;exit}' | sed 's/^.*name\\: <\\(.*\\)>.*$/\\1/')" ..
+            "/ {y=1;next} y && /active port/ {print;exit}\\\" |"..
+            " sed 's/.*<\\(.*\\)>/\\1/' | sed 's/-/ /g'\""
+        ,
+        function(stdout, _, _, _)
+            stdout = stdout:gsub("\n","")
+            pulse_notification = naughty.notify{
+                text =  stdout,
+                title = "Pulse status",
+                timeout = 5, hover_timeout = 0.5,
+                width = 200,
+            }
+        end
+    )
+end
+
+function pulse.is_muted ()
+    local pfile = io.popen (
+        "bash -c \"pacmd list-sinks | awk \\\"/" ..
+            "$(pacmd list-sinks | awk '/  \\* index\\: ./ {y=1;next} y==1 {print;exit}' | sed 's/^.*name\\: <\\(.*\\)>.*$/\\1/')" ..
+            "/ {y=1;next} /muted/ && y {print;exit}\\\" | sed 's/^.*\\(yes\\|no\\).*$/\\1/' \""
+    )
+    local line = pfile:read "*l"
+    pfile:close ()
+    return line == "yes"
+end
+
+pulse.icon = wibox.widget.imagebox (theme.widget_vol)
+pulse.text = awful.widget.watch (
+    "bash -c \"pacmd list-sinks | awk \\\"/" ..
+        "$(pacmd list-sinks | awk '/  \\* index\\: ./ {y=1;next} y==1 {print;exit}' | sed 's/^.*name\\: <\\(.*\\)>.*$/\\1/')" ..
+        "/ {y=1;next} /volume/ && y {print;exit}\\\"\"",
+    1,
+    function (widget, stdout)
+
+        local _, left, right = stdout:match ("(.*): .*(..%d)%%.*(..%d)%%.*")
+
+        local volume = math.floor((tonumber (left) + tonumber (right)) / 2)
+        local color = theme.fg_normal
+        local icon = theme.widget_vol
+
+        if volume == 0 then
+            color = "#000000"
+            icon = theme.widget_vol_no
+        elseif volume < 50 then
+            icon = theme.widget_vol_low
+        end
+
+        if pulse.is_muted () then
+            color = "#ff0000"
+            icon = theme.widget_vol_mute
+        end
+
+        pulse.icon:set_image (icon)
+        widget:set_markup(markup.fontfg(theme.font, color,
+                                        tostring (volume).."%"))
+    end
+)
+
+local pulse_widget = wibox.widget {
+    pulse.icon,
+    {
+        pulse.text,
+        left = dpi(4),
+        right = dpi(4),
+        widget = wibox.container.margin,
+    },
+    layout = wibox.layout.align.horizontal,
+}
+
+pulse_widget:connect_signal("mouse::enter", function()
+                                  pulse.show_status() end)
+pulse_widget:connect_signal("mouse::leave", function()
+                                  naughty.destroy(pulse_notification) end)
+
+-------------------- {{{ End Pulse Audio }}} -----------------------------------
+
 
 function theme.set_wallpaper(s)
     -- Wallpaper
@@ -355,13 +463,20 @@ theme.at_screen_connect = function (s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
 
-            arrow("#8DAA9A", "#C0C0A2"),
-            wibox.container.background(battery_widget, "#C0C0A2"),
+            --------------------------------------------------------------------
+            arrow("alpha", theme.arrows.color[3]),
+            wibox.container.background(pulse_widget, theme.arrows.color[3]),
+            --------------------------------------------------------------------
 
             --------------------------------------------------------------------
-            arrow("#C0C0A2", "#777E76"),
-            wibox.container.background(clock_widget, "#777E76"),
-            arrow("#777E76", "alpha"),
+            arrow(theme.arrows.color[3], theme.arrows.color[2]),
+            wibox.container.background(battery_widget, theme.arrows.color[2]),
+            --------------------------------------------------------------------
+
+            --------------------------------------------------------------------
+            arrow(theme.arrows.color[2], theme.arrows.color[1]),
+            wibox.container.background(clock_widget, theme.arrows.color[1]),
+            arrow(theme.arrows.color[1], "alpha"),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
@@ -369,6 +484,8 @@ theme.at_screen_connect = function (s)
         },
     }
 end
+
+
 
 return theme
 
