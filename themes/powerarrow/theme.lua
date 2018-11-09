@@ -191,6 +191,7 @@ theme.arrows.color[2] = "#8DAA9A"
 theme.arrows.color[3] = "#b23998"
 theme.arrows.color[4] = "#CB755B"
 theme.arrows.color[5] = "#4B3B51"
+theme.arrows.color[6] = "#4B696D"
 
 
 -- theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
@@ -250,6 +251,13 @@ local cpu_widget = cpu.get_widget (theme)
 
 -------------------- {{{ End CPU }}} -------------------------------------------
 
+-------------------- {{{ MEM }}} -----------------------------------------------
+
+local mem = require ("widget.mem")
+local mem_widget = mem.get_widget (theme)
+
+-------------------- {{{ End MEM }}} -------------------------------------------
+
 function theme.set_wallpaper(s)
     -- Wallpaper
     if theme.wallpaper then
@@ -303,7 +311,14 @@ theme.at_screen_connect = function (s)
             wibox.widget.systray(),
 
             --------------------------------------------------------------------
-            arrow("alpha", theme.arrows.color[5]),
+            arrow("alpha", theme.arrows.color[6]),
+            wibox.container.background(
+                wibox.container.margin (mem_widget, 3, 3),
+                theme.arrows.color[6]),
+            --------------------------------------------------------------------
+
+            --------------------------------------------------------------------
+            arrow(theme.arrows.color[6], theme.arrows.color[5]),
             wibox.container.background(
                 wibox.container.margin (cpu_widget, 3, 3),
                 theme.arrows.color[5]),
