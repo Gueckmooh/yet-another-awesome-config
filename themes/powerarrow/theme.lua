@@ -20,7 +20,7 @@ local theme = {}
 
 theme.name = "powerarrow"
 -- theme.dir = os.getenv ("HOME") .. ".config/awesome/themes/" .. theme.name
-theme.dir = "/home/brignone/git/yet_another_awesome_config/themes/" .. theme.name
+theme.dir = "/home/brignone/git/yet_another_awesome_config/themes/" .. theme.name -- CONFIG
 
 theme.font          = "sans 8"
 
