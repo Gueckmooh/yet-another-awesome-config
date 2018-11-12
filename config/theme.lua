@@ -17,7 +17,15 @@ local screen    = screen
 local client    = client
 local awesome   = awesome
 
-theme.name      = "powerarrow"
+theme.list_themes = {
+    "default",
+    "powerarrow"
+}
+
+theme.name = theme.list_themes[2]
+
+-- theme.name      = "powerarrow"
+-- theme.name      = "default"
 -- theme.directory     = os.getenv ("HOME") .. "/.config/awesome/themes"
 theme.directory     = os.getenv ("HOME") .. "/git/yet_another_awesome_config/themes" -- CONFIG
 theme.path          = string.format ("%s/%s/theme.lua", theme.directory, theme.name)
@@ -123,10 +131,10 @@ client.connect_signal("request::titlebars", function(c)
             awful.mouse.client.resize(c)
         end)
     )
-
+    -- {{{ Configure the box on the top of clients
     awful.titlebar(c) : setup {
         { -- Left
-            awful.titlebar.widget.iconwidget(c),
+            -- awful.titlebar.widget.iconwidget(c), -- Remove the icon
             buttons = buttons,
             layout  = wibox.layout.fixed.horizontal
         },

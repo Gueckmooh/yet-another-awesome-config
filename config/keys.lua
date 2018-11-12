@@ -16,7 +16,7 @@ local root            = root
 
 local keys = {}
 
-keys.modkey         = "Mod44"
+keys.modkey         = "Mod4"
 keys.metakey        = "Mod1"
 keys.ctrlkey        = "Control"
 keys.shiftkey       = "Shift"

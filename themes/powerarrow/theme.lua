@@ -193,6 +193,7 @@ theme.arrows.color[4] = "#CB755B"
 theme.arrows.color[5] = "#4B3B51"
 theme.arrows.color[6] = "#4B696D"
 
+theme.arrows.color[#theme.arrows.color + 1] =  "#343434"
 
 -- theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
 
@@ -311,7 +312,14 @@ theme.at_screen_connect = function (s)
             wibox.widget.systray(),
 
             --------------------------------------------------------------------
-            arrow("alpha", theme.arrows.color[6]),
+            arrow("alpha", theme.arrows.color[#theme.arrows.color]),
+            wibox.container.background(
+                wibox.container.margin (wibox.widget.systray(), 3, 3),
+                theme.arrows.color[#theme.arrows.color]),
+            --------------------------------------------------------------------
+
+            --------------------------------------------------------------------
+            arrow(theme.arrows.color[7], theme.arrows.color[6]),
             wibox.container.background(
                 wibox.container.margin (mem_widget, 3, 3),
                 theme.arrows.color[6]),
