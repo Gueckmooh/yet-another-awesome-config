@@ -7,11 +7,12 @@
 --]]
 
 local config = {
-    keys   = require ("config.keys"),
-    layout = require ("config.layout"),
-    menu   = require ("config.menu"),
-    vars   = require ("config.vars"),
-    theme  = require ("config.theme"),
+    keys    = require ("config.keys"),
+    layout  = require ("config.layout"),
+    menu    = require ("config.menu"),
+    vars    = require ("config.vars"),
+    theme   = require ("config.theme"),
+    startup = require ("config.startup")
 }
 
 for _, mod in pairs (config)

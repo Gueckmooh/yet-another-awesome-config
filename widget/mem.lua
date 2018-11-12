@@ -29,7 +29,7 @@ mem.get_widget = function (theme)
             function(_, _, _, _)
                 local current, max, _ = mem.get_usage ()
                 mem_notification = naughty.notify{
-                    text =  tostring(current)..'/'..tostring(max).."%",
+                    text =  tostring(current)..'/'..tostring(max).."MB",
                     title = "Memory status",
                     timeout = 5, hover_timeout = 0.5,
                     width = 200,

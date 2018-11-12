@@ -162,6 +162,7 @@ theme.widget_mail                               = theme.dir .. "/icons/mail.png"
 theme.widget_mail_on                            = theme.dir .. "/icons/mail_on.png"
 theme.widget_task                               = theme.dir .. "/icons/task.png"
 theme.widget_scissors                           = theme.dir .. "/icons/scissors.png"
+theme.widget_pacman                             = theme.dir .. "/icons/pacman.png"
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = true
 theme.useless_gap                               = 7
@@ -192,8 +193,14 @@ theme.arrows.color[3] = "#b23998"
 theme.arrows.color[4] = "#CB755B"
 theme.arrows.color[5] = "#4B3B51"
 theme.arrows.color[6] = "#4B696D"
+theme.arrows.color[7] = "#777E76"
+theme.arrows.color[8] = "#343434"
+theme.arrows.color[9] = "alpha"
+
 
 theme.arrows.color[#theme.arrows.color + 1] =  "#343434"
+
+theme.bg_systray = theme.arrows.color[#theme.arrows.color]
 
 -- theme.awesome_icon = "/usr/share/awesome/icons/awesome16.png"
 
@@ -259,6 +266,20 @@ local mem_widget = mem.get_widget (theme)
 
 -------------------- {{{ End MEM }}} -------------------------------------------
 
+-------------------- {{{ FS }}} ------------------------------------------------
+
+local fs = require ("widget.fs")
+local fs_widget = fs.get_widget (theme)
+
+-------------------- {{{ End FS }}} --------------------------------------------
+
+-------------------- {{{ PACK }}} ----------------------------------------------
+
+local pack = require ("widget.pack")
+local pack_widget = pack.get_widget (theme)
+
+-------------------- {{{ End PACK }}} ------------------------------------------
+
 function theme.set_wallpaper(s)
     -- Wallpaper
     if theme.wallpaper then
@@ -314,8 +335,29 @@ theme.at_screen_connect = function (s)
             --------------------------------------------------------------------
             arrow("alpha", theme.arrows.color[#theme.arrows.color]),
             wibox.container.background(
-                wibox.container.margin (wibox.widget.systray(), 3, 3),
+                wibox.container.margin (wibox.widget.systray (), 3, 3),
                 theme.arrows.color[#theme.arrows.color]),
+            --------------------------------------------------------------------
+
+            --------------------------------------------------------------------
+            arrow(theme.arrows.color[10], theme.arrows.color[9]),
+            wibox.container.background(
+                wibox.container.margin (nil, 3, 3),
+                theme.arrows.color[9]),
+            --------------------------------------------------------------------
+
+            --------------------------------------------------------------------
+            arrow(theme.arrows.color[9], theme.arrows.color[8]),
+            wibox.container.background(
+                wibox.container.margin (pack_widget, 3, 3),
+                theme.arrows.color[8]),
+            --------------------------------------------------------------------
+
+            --------------------------------------------------------------------
+            arrow(theme.arrows.color[8], theme.arrows.color[7]),
+            wibox.container.background(
+                wibox.container.margin (fs_widget, 3, 3),
+                theme.arrows.color[7]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
