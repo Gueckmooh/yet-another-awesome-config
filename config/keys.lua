@@ -10,6 +10,7 @@ local awful           = require ("awful")
 local hotkeys_popup   = require ("awful.hotkeys_popup").widget
 local menu            = require ("config.menu")
 local layout          = require ("config.layout")
+local vars            = require ("config.vars")
 
 local client          = client
 local root            = root
@@ -136,7 +137,7 @@ keys.globalkeys = awful.util.table.join(
 
     -- {{{ Standard program
     ----------------------------------------------------------------------------
-    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
+    awful.key({ modkey,           }, "Return", function () awful.spawn(vars.terminal) end,
         {description = "open a terminal", group = "launcher"}),
     ----------------------------------------------------------------------------
 
@@ -310,8 +311,8 @@ keys.clientkeys = awful.util.table.join(
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, #layout.tags do
-    globalkeys = awful.util.table.join(
-        globalkeys,
+    keys.globalkeys = awful.util.table.join(
+        keys.globalkeys,
 
         ------------------------------------------------------------------------
         -- View tag only.
@@ -384,7 +385,7 @@ keys.clientbuttons = awful.util.table.join(
 )
 
 -- {{{ Configure the keys
-root.keys(globalkeys)
+root.keys(keys.globalkeys)
 
 
 return keys
