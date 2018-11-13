@@ -89,26 +89,12 @@ mpd.get_widget = function (theme)
 
     mpd.icon = wibox.widget.imagebox (theme.widget_music)
 
-
-    -- local battery_notification
-    -- local function show_battery_status()
-    --     awful.spawn.easy_async([[bash -c 'acpi']],
-    --         function(stdout, _, _, _)
-    --             battery_notification = naughty.notify{
-    --                 text =  stdout,
-    --                 title = "Battery status",
-    --                 timeout = 5, hover_timeout = 0.5,
-    --                 width = 200,
-    --             }
-    --         end
-    --     )
-    -- end
-
     mpd.already_extracted = {}
 
     mpd.extract_image = function (infos)
         if mpd.already_extracted[infos.file] ~= nil then
-            if util.simple_exec ("test -f " .. mpd.already_extracted[infos.file] .. "&& echo oui") ~= nil
+            if util.simple_exec ("test -f " .. mpd.already_extracted[infos.file] ..
+                                     "&& echo oui") ~= nil
             then
                 return mpd.already_extracted[infos.file]
             else
