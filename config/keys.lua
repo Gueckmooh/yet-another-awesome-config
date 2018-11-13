@@ -279,16 +279,23 @@ keys.globalkeys = awful.util.table.join(
             else
                 awful.spawn.with_shell("mpc -p " .. mpd.port .. " toggle")
             end
-            end),
+        end,
+        {description = "Play/Pause music", group = "Music"}),
     awful.key({ }, "XF86AudioPrev", function ()
                     awful.spawn.with_shell("mpc -p " .. mpd.port .. " prev")
-    end),
+    end, {description = "Play previous music", group = "Music"}),
     awful.key({ }, "XF86AudioNext", function ()
             awful.spawn.with_shell("mpc -p " .. mpd.port .. " next")
-    end),
+    end, {description = "Play next music", group = "Music"}),
     awful.key({ }, "XF86AudioStop", function ()
             awful.spawn.with_shell("mpc -p " .. mpd.port .. " stop")
-    end),
+    end, {description = "Stop Music", group = "Music"}),
+    awful.key({ modkey, shiftkey }, "m", function ()
+            if mpd.get_infos ().state == "N/A" then
+                awful.spawn.with_shell ("mpd")
+            end
+            awful.spawn.with_shell(vars.terminal .. " -e ncmpcpp")
+    end, {description = "Open ncmpcpp", group = "Music"}),
     ----------------------------------------------------------------------------
     -- }}}
 
