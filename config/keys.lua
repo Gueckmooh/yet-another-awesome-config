@@ -12,6 +12,7 @@ local menu            = require ("config.menu")
 local layout          = require ("config.layout")
 local vars            = require ("config.vars")
 local APW             = require("apw/widget")
+local mpd             = require ("widget.mpd")
 
 local client          = client
 local root            = root
@@ -266,7 +267,28 @@ keys.globalkeys = awful.util.table.join(
         {description = "Decrease the screen backlight", group = "peripherals"}),
     --Increase backlight
     awful.key({ }, "XF86KbdBrightnessUp", function () os.execute ([[bash -c "backlight + 7"]]) end,
-        {description = "Increase the screen backlight", group = "peripherals"})
+        {description = "Increase the screen backlight", group = "peripherals"}),
+    ----------------------------------------------------------------------------
+    -- }}}
+
+    -- {{{ MPD keys
+    ----------------------------------------------------------------------------
+    awful.key({ }, "XF86AudioPlay", function ()
+            if mpd.get_infos ().state == "N/A" then
+                awful.spawn.with_shell ("mpd")
+            else
+                awful.spawn.with_shell("mpc -p " .. mpd.port .. " toggle")
+            end
+            end),
+    awful.key({ }, "XF86AudioPrev", function ()
+                    awful.spawn.with_shell("mpc -p " .. mpd.port .. " prev")
+    end),
+    awful.key({ }, "XF86AudioNext", function ()
+            awful.spawn.with_shell("mpc -p " .. mpd.port .. " next")
+    end),
+    awful.key({ }, "XF86AudioStop", function ()
+            awful.spawn.with_shell("mpc -p " .. mpd.port .. " stop")
+    end)
     ----------------------------------------------------------------------------
     -- }}}
 )

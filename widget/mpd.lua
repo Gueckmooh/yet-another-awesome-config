@@ -148,43 +148,45 @@ mpd.get_widget = function (theme)
     function mpd.status(infos)
         awful.spawn.easy_async([[true]],
             function(_, _, _, _)
-                if string.match(infos.file, ".*/") ~= nil then
-                    local path   = string.format("%s/%s", vars.music_dir, string.match(infos.file, ".*/"))
-                    local cover  = string.format("find '%s' -maxdepth 1 -type f | egrep -i -m1 '%s'",
-                                                 path:gsub("'", "'\\''"), cover_pattern)
-                    local pfile = io.popen (shell .. " -c " .. '"' .. cover .. '"')
-                    local current_icon = pfile:read "*l"
-                    pfile:close ()
-                    mpd.cover = current_icon:gsub("\n", "")
-                    if #mpd.cover == 0 then mpd.cover = nil end
-                else
-                    mpd.cover = nil
-                end
-                local message
-                if infos.title ~= "N/A" then
-                    message = string.format (
-                        "%s (%s) - %s\n"..
+                if infos.state ~= "N/A" and infos.state ~= "stop" then
+                    if string.match(infos.file, ".*/") ~= nil then
+                        local path   = string.format("%s/%s", vars.music_dir, string.match(infos.file, ".*/"))
+                        local cover  = string.format("find '%s' -maxdepth 1 -type f | egrep -i -m1 '%s'",
+                                                     path:gsub("'", "'\\''"), cover_pattern)
+                        local pfile = io.popen (shell .. " -c " .. '"' .. cover .. '"')
+                        local current_icon = pfile:read "*l"
+                        pfile:close ()
+                        mpd.cover = current_icon:gsub("\n", "")
+                        if #mpd.cover == 0 then mpd.cover = nil end
+                    else
+                        mpd.cover = nil
+                    end
+                    local message
+                    if infos.title ~= "N/A" then
+                        message = string.format (
+                            "%s (%s) - %s\n"..
+                                "%s",
+                            infos.artist, infos.album, infos.date,
+                            infos.title
+                        )
+                    else
+                        message = string.format (
                             "%s",
-                        infos.artist, infos.album, infos.date,
-                        infos.title
-                    )
-                else
-                    message = string.format (
-                        "%s",
-                        infos.file
-                    )
+                            infos.file
+                        )
+                    end
+                    mpd_notification = naughty.notify{
+                        icon = mpd.cover,
+                        icon_size=100,
+                        title = "Now playing",
+                        text = message,
+                        timeout = 5, hover_timeout = 0.5,
+                        position = "top_right",
+                        bg = theme.bg_normal,
+                        fg = theme.fg_normal,
+                        width = 300,
+                    }
                 end
-                mpd_notification = naughty.notify{
-                    icon = mpd.cover,
-                    icon_size=100,
-                    title = "Now playing",
-                    text = message,
-                    timeout = 5, hover_timeout = 0.5,
-                    position = "top_right",
-                    bg = theme.bg_normal,
-                    fg = theme.fg_normal,
-                    width = 300,
-                }
             end
         )
     end
@@ -248,7 +250,12 @@ mpd.get_widget = function (theme)
     mpd_widget:buttons (
         my_table.join(
             awful.button({ }, 1, function ()
-                    awful.spawn.with_shell(vars.terminal .. " -e ncmpcpp") end),
+                    if mpd.get_infos ().state == "N/A" then
+                        awful.spawn.with_shell ("mpd")
+                    else
+                        awful.spawn.with_shell(vars.terminal .. " -e ncmpcpp")
+                    end
+            end),
             awful.button({  }, 3, function ()
                     awful.spawn.with_shell("mpc -p " .. mpd.port .. " toggle")
                     -- theme.mpd.update()
