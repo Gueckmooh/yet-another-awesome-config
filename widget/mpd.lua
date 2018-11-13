@@ -177,7 +177,6 @@ mpd.get_widget = function (theme)
 
     local mpd_notification
     function mpd.status(infos)
-        naughty.destroy(mpd_warning)
         awful.spawn.easy_async([[true]],
             function(_, _, _, _)
                 if infos.state ~= "N/A" and infos.state ~= "stop" then
