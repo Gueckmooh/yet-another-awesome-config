@@ -3,6 +3,13 @@ local awful  = require ("awful")
 
 local util = {}
 
+util.simple_exec = function (cmd)
+    local pfile = io.popen (cmd)
+    local line = pfile:read "*l"
+    pfile:close ()
+    return line
+end
+
 function util.run_once(cmd_arr)
     for _, cmd in ipairs(cmd_arr) do
         local findme = cmd
