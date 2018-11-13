@@ -399,14 +399,14 @@ theme.at_screen_connect = function (s)
             --------------------------------------------------------------------
             arrow(theme.arrows.color[10], theme.arrows.color[9]),
             wibox.container.background(
-                wibox.container.margin (mpd_widget, 3, 3),
+                wibox.container.margin (mpd_widget, 8, 3),
                 theme.arrows.color[9]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
             arrow(theme.arrows.color[9], theme.arrows.color[8]),
             wibox.container.background(
-                wibox.container.margin (pack_widget, 3, 3),
+                wibox.container.margin (pack_widget, 8, 3),
                 theme.arrows.color[8]),
             --------------------------------------------------------------------
 
