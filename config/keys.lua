@@ -314,7 +314,7 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- Super + escape -> launch browser
     awful.key({ modkey }, "Escape", function ()
-            awful.spawn.with_shell(vars.lock_command)
+            os.execute(vars.lock_command .. " && xset dpms force off")
     end)
     ----------------------------------------------------------------------------
     -- }}}
