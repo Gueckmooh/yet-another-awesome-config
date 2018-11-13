@@ -330,6 +330,13 @@ local pack_widget = pack.get_widget (theme)
 
 -------------------- {{{ End PACK }}} ------------------------------------------
 
+-------------------- {{{ MPD }}} ----------------------------------------------
+
+local mpd = require ("widget.mpd")
+local mpd_widget = mpd.get_widget (theme)
+
+-------------------- {{{ End MPD }}} ------------------------------------------
+
 function theme.set_wallpaper(s)
     -- Wallpaper
     if theme.wallpaper then
@@ -392,7 +399,7 @@ theme.at_screen_connect = function (s)
             --------------------------------------------------------------------
             arrow(theme.arrows.color[10], theme.arrows.color[9]),
             wibox.container.background(
-                wibox.container.margin (nil, 3, 3),
+                wibox.container.margin (mpd_widget, 3, 3),
                 theme.arrows.color[9]),
             --------------------------------------------------------------------
 

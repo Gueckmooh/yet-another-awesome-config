@@ -12,8 +12,9 @@ autorun.list = {
     vars.redshift_command,
     "tap-to-click enable",
     "emacs --daemon",
+    "mpd",
 }
 
-util.run_once (autorun.run_once)
+util.run_once (autorun.list)
 
 return autorun
