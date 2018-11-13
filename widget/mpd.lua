@@ -111,8 +111,12 @@ mpd.get_widget = function (theme)
             local pfile = io.popen (shell .. " -c " .. '"' .. cover .. '"')
             local current_icon = pfile:read "*l"
             pfile:close ()
-            mpd.cover = current_icon:gsub("\n", "")
-            if #mpd.cover == 0 then mpd.cover = nil end
+            if current_icon ~= nil then
+                mpd.cover = current_icon:gsub("\n", "")
+                if #mpd.cover == 0 then mpd.cover = nil end
+            else
+                mpd.cover = nil
+            end
         else
             mpd.cover = nil
         end
@@ -156,8 +160,12 @@ mpd.get_widget = function (theme)
                         local pfile = io.popen (shell .. " -c " .. '"' .. cover .. '"')
                         local current_icon = pfile:read "*l"
                         pfile:close ()
-                        mpd.cover = current_icon:gsub("\n", "")
-                        if #mpd.cover == 0 then mpd.cover = nil end
+                        if current_icon ~= nil then
+                            mpd.cover = current_icon:gsub("\n", "")
+                            if #mpd.cover == 0 then mpd.cover = nil end
+                        else
+                            mpd.cover = nil
+                        end
                     else
                         mpd.cover = nil
                     end
