@@ -15,6 +15,7 @@ local lain            = require ("lain")
 local markup          = lain.util.markup
 local separators      = lain.util.separators
 local arrow           = separators.arrow_left
+local client          = client
 
 local theme = {}
 
@@ -166,6 +167,7 @@ theme.widget_pacman                             = theme.dir .. "/icons/pacman.pn
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = true
 theme.useless_gap                               = 7
+theme.max_useless_gap                           = 7
 theme.titlebar_close_button_focus               = theme.dir .. "/icons/titlebar/close_focus.png"
 theme.titlebar_close_button_normal              = theme.dir .. "/icons/titlebar/close_normal.png"
 theme.titlebar_ontop_button_focus_active        = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
@@ -213,6 +215,54 @@ theme.launcher =
             image = theme.awesome_icon,
             menu = menu.mainmenu
     })
+
+-- {{{ Change gaps if there is more than one screen
+-- client.connect_signal("manage", function(c)
+--     local scr = awful.screen.focused ()
+--     local all_clients = scr.clients
+--     if #all_clients > 1 then
+--         scr.selected_tag.gap = theme.max_useless_gap
+--     else
+--         scr.selected_tag.gap = 0
+--     end
+--         awful.layout.arrange(scr)
+-- end)
+
+-- client.connect_signal("unmanage", function(c)
+--     local scr = awful.screen.focused ()
+--     local all_clients = scr.clients
+--     if #all_clients > 1 then
+--         scr.selected_tag.gap = theme.max_useless_gap
+--     else
+--         scr.selected_tag.gap = 0
+--     end
+--         awful.layout.arrange(scr)
+-- end)
+
+-- tag.connect_signal("tagged", function(t)
+--     local scr = t.screen
+--     local all_clients = scr.clients
+--     print (#all_clients)
+--     if #all_clients > 1 then
+--         scr.selected_tag.gap = theme.max_useless_gap
+--     else
+--         scr.selected_tag.gap = 0
+--     end
+--         awful.layout.arrange(scr)
+-- end)
+
+-- tag.connect_signal("untagged", function(t)
+--     local scr = t.screen
+--     local all_clients = scr.clients
+--     print (#all_clients)
+--     if #all_clients > 1 then
+--         scr.selected_tag.gap = theme.max_useless_gap
+--     else
+--         scr.selected_tag.gap = 0
+--     end
+--         awful.layout.arrange(scr)
+-- end)
+-- }}}
 
 --[[
 __        ___     _            _

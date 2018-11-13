@@ -62,7 +62,7 @@ pack.get_widget = function (theme)
         }
     end
 
-    startup.register (function () pack.show_warning () end)
+    startup.register (function () if pack.nb ~= 0 then pack.show_warning () end end)
 
     pack.text = awful.widget.watch (
         "echo",
