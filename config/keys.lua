@@ -322,7 +322,19 @@ keys.globalkeys = awful.util.table.join(
     -- Super + escape -> launch browser
     awful.key({ modkey }, "Escape", function ()
             os.execute(vars.lock_command .. " && xset dpms force off")
-    end)
+    end),
+    ----------------------------------------------------------------------------
+    -- }}}
+
+    -- {{{ Screenshot
+    ----------------------------------------------------------------------------
+    -- imprime écran -> Screenshot
+    awful.key({ }, "#107", function () os.execute("screenshot") end,
+        {description = "Take screenshot", group = "util"}),
+    -- Super + imprime écran -> Screenshot sur selection/client
+    awful.key({ modkey }, "#107", function ()
+            awful.util.spawn_with_shell("sleep 0.1 && screenshot -s") end,
+      {description = "Take screenshot by selecting region/client", group = "util"})
     ----------------------------------------------------------------------------
     -- }}}
 )
