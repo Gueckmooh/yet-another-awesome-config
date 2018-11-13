@@ -69,6 +69,10 @@ pulseaudio.get_widget = function (theme)
 
             local _, left, right = stdout:match ("(.*): .*(..%d)%%.*(..%d)%%.*")
 
+            if left == nil or right == nil
+            then return
+            end
+
             local volume = math.floor((tonumber (left) + tonumber (right)) / 2)
             local color = theme.fg_normal
             local icon = theme.widget_vol
