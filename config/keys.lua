@@ -297,6 +297,15 @@ keys.globalkeys = awful.util.table.join(
     -- Super + Control + f -> launch browser
     awful.key({ modkey, ctrlkey }, "f", function ()
             awful.spawn.with_shell(vars.browser)
+    end),
+    ----------------------------------------------------------------------------
+    -- }}}
+
+    -- {{{ Rofi
+    ----------------------------------------------------------------------------
+    -- Super + r -> launch browser
+    awful.key({ modkey }, "r", function ()
+            awful.spawn.with_shell(vars.rofi)
     end)
     ----------------------------------------------------------------------------
     -- }}}
