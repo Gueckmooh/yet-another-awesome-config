@@ -306,6 +306,15 @@ keys.globalkeys = awful.util.table.join(
     -- Super + r -> launch browser
     awful.key({ modkey }, "r", function ()
             awful.spawn.with_shell(vars.rofi .. "run\"")
+    end),
+    ----------------------------------------------------------------------------
+    -- }}}
+
+    -- {{{ Lock
+    ----------------------------------------------------------------------------
+    -- Super + escape -> launch browser
+    awful.key({ modkey }, "Escape", function ()
+            awful.spawn.with_shell(vars.lock_command)
     end)
     ----------------------------------------------------------------------------
     -- }}}
