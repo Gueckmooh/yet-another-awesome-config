@@ -122,8 +122,9 @@ mpd.get_widget = function (theme)
         return filename
     end
 
-
+    local mpd_warning
     function mpd.show_warning(infos)
+        naughty.destroy(mpd_warning)
         if string.match(infos.file, ".*/") ~= nil then
             local path   = string.format("%s/%s", vars.music_dir, string.match(infos.file, ".*/"))
             local cover  = string.format("find '%s' -maxdepth 1 -type f | egrep -i -m1 '%s'",
@@ -160,7 +161,7 @@ mpd.get_widget = function (theme)
                 infos.file
             )
         end
-        naughty.notify{
+        mpd_warning = naughty.notify{
             icon = mpd.cover,
             icon_size=100,
             title = "Now playing",
@@ -176,6 +177,7 @@ mpd.get_widget = function (theme)
 
     local mpd_notification
     function mpd.status(infos)
+        naughty.destroy(mpd_warning)
         awful.spawn.easy_async([[true]],
             function(_, _, _, _)
                 if infos.state ~= "N/A" and infos.state ~= "stop" then
@@ -235,42 +237,41 @@ mpd.get_widget = function (theme)
 
     local currently_playing = ""
 
+    mpd.text_updater = function (widget)
+        local mpd_infos = mpd.get_infos ()
+        local color1 = "#FF8466"
+        local color2 = theme.fg_normal
+        if mpd_infos.state == "play"
+        then
+            if mpd_infos.title ~= "N/A" then
+                widget:set_markup (markup.fontfg (theme.font, color2,
+                                                  markup (color1, mpd_infos.artist)
+                                                      .. " " .. mpd_infos.title))
+            else
+                local filename = mpd_infos.file
+                if mpd_infos.file:len() > 24 then
+                    filename = mpd_infos.file:sub (0, 20) .. "..."
+                end
+                widget:set_markup (markup.fontfg (theme.font, color2, filename))
+            end
+            mpd.icon:set_image (theme.widget_music_on)
+            if currently_playing ~= mpd_infos.file then
+                mpd.show_warning (mpd_infos)
+                currently_playing = mpd_infos.file
+            end
+        elseif mpd_infos.state == "pause"
+        then
+            widget:set_markup (markup.fontfg (theme.font, color2, "Paused"))
+            mpd.icon:set_image (theme.widget_music_pause)
+        else
+            widget:set_text ("")
+            mpd.icon:set_image (theme.widget_music)
+            currently_playing = ""
+        end
+    end
     mpd.text = awful.widget.watch (
         "true",
-        1,
-        function (widget)
-            local mpd_infos = mpd.get_infos ()
-            local color1 = "#FF8466"
-            local color2 = theme.fg_normal
-            if mpd_infos.state == "play"
-            then
-                if mpd_infos.title ~= "N/A" then
-                    widget:set_markup (markup.fontfg (theme.font, color2,
-                                                      markup (color1, mpd_infos.artist)
-                                                          .. " " .. mpd_infos.title))
-                else
-                    local filename = mpd_infos.file
-                    if mpd_infos.file:len() > 24 then
-                        filename = mpd_infos.file:sub (0, 20) .. "..."
-                    end
-                    widget:set_markup (markup.fontfg (theme.font, color2, filename))
-                end
-                mpd.icon:set_image (theme.widget_music_on)
-                if currently_playing ~= mpd_infos.file then
-                    mpd.show_warning (mpd_infos)
-                    currently_playing = mpd_infos.file
-                end
-            elseif mpd_infos.state == "pause"
-            then
-                widget:set_markup (markup.fontfg (theme.font, color2, "Paused"))
-                mpd.icon:set_image (theme.widget_music_pause)
-            else
-                widget:set_text ("")
-                mpd.icon:set_image (theme.widget_music)
-                currently_playing = ""
-            end
-        end
-    )
+        1, mpd.text_updater)
 
     local mpd_widget = wibox.widget {
         mpd.icon,
@@ -282,6 +283,10 @@ mpd.get_widget = function (theme)
         },
         layout = wibox.layout.align.horizontal,
     }
+
+    mpd.update = function ()
+        mpd.text_updater (mpd.text)
+    end
 
     mpd_widget:connect_signal("mouse::enter", function()
                                       mpd.status(mpd.get_infos ()) end)
@@ -299,18 +304,22 @@ mpd.get_widget = function (theme)
                             awful.spawn.with_shell(vars.terminal .. " -e 'ncmpcpp'")
                         end
                     end
+                    mpd.update ()
             end),
             awful.button({  }, 3, function ()
                     awful.spawn.with_shell("mpc -p " .. mpd.port .. " toggle")
                     -- theme.mpd.update()
+                    mpd.update ()
             end),
             awful.button({ modkey }, 1, function ()
                     awful.spawn.with_shell("mpc -p " .. mpd.port .. " prev")
                     -- theme.mpd.update()
+                    mpd.update ()
             end),
             awful.button({ modkey }, 3, function ()
                     awful.spawn.with_shell("mpc -p " .. mpd.port .. " next")
                     -- theme.mpd.update()
+                    mpd.update ()
         end)
     ))
 

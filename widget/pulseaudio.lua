@@ -5,6 +5,9 @@ local xresources      = require("beautiful.xresources")
 local dpi             = xresources.apply_dpi
 local lain            = require ("lain")
 local markup          = lain.util.markup
+local util            = require ("config.util")
+local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
+local APW             = require("apw/widget")
 
 local pulseaudio = {}
 
@@ -60,40 +63,50 @@ pulseaudio.get_widget = function (theme)
     end
 
     pulseaudio.icon = wibox.widget.imagebox (theme.widget_vol)
+
+    pulseaudio.text_updater = function (widget, stdout)
+
+        local _, left, right = stdout:match ("(.*): .*(..%d)%%.*(..%d)%%.*")
+
+        if left == nil or right == nil
+        then return
+        end
+
+        local volume = math.floor((tonumber (left) + tonumber (right)) / 2)
+        local color = theme.fg_normal
+        local icon = theme.widget_vol
+
+        if volume == 0 then
+            color = "#000000"
+            icon = theme.widget_vol_no
+        elseif volume < 50 then
+            icon = theme.widget_vol_low
+        end
+
+        if pulseaudio.is_muted () then
+            color = "#ff0000"
+            icon = theme.widget_vol_mute
+        end
+
+        pulseaudio.icon:set_image (icon)
+        widget:set_markup(markup.fontfg(theme.font, color,
+                                        tostring (volume).."%"))
+    end
+
     pulseaudio.text = awful.widget.watch (
         "bash -c \"pacmd list-sinks | awk \\\"/" ..
             "$(pacmd list-sinks | awk '/  \\* index\\: ./ {y=1;next} y==1 {print;exit}' | sed 's/^.*name\\: <\\(.*\\)>.*$/\\1/')" ..
             "/ {y=1;next} /volume/ && y {print;exit}\\\"\"",
-        1,
-        function (widget, stdout)
+        1, pulseaudio.text_updater)
 
-            local _, left, right = stdout:match ("(.*): .*(..%d)%%.*(..%d)%%.*")
-
-            if left == nil or right == nil
-            then return
-            end
-
-            local volume = math.floor((tonumber (left) + tonumber (right)) / 2)
-            local color = theme.fg_normal
-            local icon = theme.widget_vol
-
-            if volume == 0 then
-                color = "#000000"
-                icon = theme.widget_vol_no
-            elseif volume < 50 then
-                icon = theme.widget_vol_low
-            end
-
-            if pulseaudio.is_muted () then
-                color = "#ff0000"
-                icon = theme.widget_vol_mute
-            end
-
-            pulseaudio.icon:set_image (icon)
-            widget:set_markup(markup.fontfg(theme.font, color,
-                                            tostring (volume).."%"))
-        end
-    )
+    pulseaudio.update = function ()
+        local stdout = util.simple_exec (
+            "bash -c \"pacmd list-sinks | awk \\\"/" ..
+            "$(pacmd list-sinks | awk '/  \\* index\\: ./ {y=1;next} y==1 {print;exit}' | sed 's/^.*name\\: <\\(.*\\)>.*$/\\1/')" ..
+            "/ {y=1;next} /volume/ && y {print;exit}\\\"\""
+        )
+        pulseaudio.text_updater (pulseaudio.text, stdout)
+    end
 
     local pulse_widget = wibox.widget {
         pulseaudio.icon,
@@ -110,6 +123,22 @@ pulseaudio.get_widget = function (theme)
                                     pulseaudio.show_status() end)
     pulse_widget:connect_signal("mouse::leave", function()
                                     naughty.destroy(pulse_notification) end)
+
+    pulse_widget:buttons (
+        my_table.join(
+            awful.button({ }, 1, function ()
+                    APW.ToggleMute ()
+                    pulseaudio.update ()
+            end),
+            awful.button({ }, 4, function ()
+                    APW.Up ()
+                    pulseaudio.update ()
+            end),
+            awful.button({ }, 5, function ()
+                    APW.Down ()
+                    pulseaudio.update ()
+            end)
+    ))
 
     return pulse_widget
 
