@@ -13,6 +13,7 @@ local layout          = require ("config.layout")
 local vars            = require ("config.vars")
 local APW             = require("apw/widget")
 local mpd             = require ("widget.mpd")
+local menubar         = require ("menubar")
 
 local client          = client
 local root            = root
