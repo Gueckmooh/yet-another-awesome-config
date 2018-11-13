@@ -9,6 +9,7 @@ local vars            = require ("config.vars")
 local escape_f        = require("awful.util").escape
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local helpers         = require("lain.helpers")
+local util            = require ("config.util")
 
 local mpd = {}
 
@@ -103,6 +104,39 @@ mpd.get_widget = function (theme)
     --     )
     -- end
 
+    mpd.already_extracted = {}
+
+    mpd.extract_image = function (infos)
+        if mpd.already_extracted[infos.file] ~= nil then
+            if util.simple_exec ("test -f " .. mpd.already_extracted[infos.file] .. "&& echo oui") ~= nil
+            then
+                return mpd.already_extracted[infos.file]
+            else
+                mpd.already_extracted[infos.file] = nil
+            end
+        end
+        local realpath = string.format("%s/%s", vars.music_dir, infos.file)
+        local _, file, _ = infos.file:match("(.-)([^/]-([^%.]+))$")
+        file, _ = file:match ("(.-)%.([^.]+)$")
+        local pfile = io.popen ("exiftool \"".. realpath .."\" | awk '/Picture .* \\(Binary/'")
+        local line = pfile:read "*l"
+        pfile:close ()
+        if line == nil then
+            return nil
+        end
+        local file_ext = util.simple_exec ("exiftool \"".. realpath ..
+                                          "\" | awk -v FS=/ '/Picture MIME Type/ {print $NF}'")
+        local filename = util.simple_exec ("mktemp -u | sed 's/$/." .. file_ext .. "/' "..
+                                               "| sed 's/\\/tmp\\//\\/tmp\\/%f/'")
+        os.execute (
+            "exiftool -b -Picture -w+! \'" .. filename .. "\' -r \"" .. realpath .. "\""
+        )
+        filename = filename:gsub ("%%f", file)
+        mpd.already_extracted[infos.file] = filename
+        return filename
+    end
+
+
     function mpd.show_warning(infos)
         if string.match(infos.file, ".*/") ~= nil then
             local path   = string.format("%s/%s", vars.music_dir, string.match(infos.file, ".*/"))
@@ -116,6 +150,12 @@ mpd.get_widget = function (theme)
                 if #mpd.cover == 0 then mpd.cover = nil end
             else
                 mpd.cover = nil
+            end
+            if mpd.cover == nil then
+                current_icon = mpd.extract_image (infos)
+                if current_icon ~= nil then
+                    mpd.cover = current_icon
+                end
             end
         else
             mpd.cover = nil
@@ -165,6 +205,12 @@ mpd.get_widget = function (theme)
                             if #mpd.cover == 0 then mpd.cover = nil end
                         else
                             mpd.cover = nil
+                        end
+                        if mpd.cover == nil then
+                            current_icon = mpd.extract_image (infos)
+                            if current_icon ~= nil then
+                                mpd.cover = current_icon
+                            end
                         end
                     else
                         mpd.cover = nil
