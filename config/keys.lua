@@ -288,6 +288,15 @@ keys.globalkeys = awful.util.table.join(
     end),
     awful.key({ }, "XF86AudioStop", function ()
             awful.spawn.with_shell("mpc -p " .. mpd.port .. " stop")
+    end),
+    ----------------------------------------------------------------------------
+    -- }}}
+
+    -- {{{ Browser
+    ----------------------------------------------------------------------------
+    -- Super + Control + f -> launch browser
+    awful.key({ modkey, ctrlkey }, "f", function ()
+            awful.spawn.with_shell(vars.browser)
     end)
     ----------------------------------------------------------------------------
     -- }}}
