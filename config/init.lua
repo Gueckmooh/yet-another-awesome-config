@@ -11,9 +11,9 @@ local config = {
     layout  = require ("config.layout"),
     menu    = require ("config.menu"),
     vars    = require ("config.vars"),
+    autorun = require ("config.autorun"),
     theme   = require ("config.theme"),
     startup = require ("config.startup"),
-    autorun = require ("config.autorun"),
 }
 
 for _, mod in pairs (config)
