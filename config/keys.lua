@@ -11,6 +11,7 @@ local hotkeys_popup   = require ("awful.hotkeys_popup").widget
 local menu            = require ("config.menu")
 local layout          = require ("config.layout")
 local vars            = require ("config.vars")
+local APW             = require("apw/widget")
 
 local client          = client
 local root            = root
@@ -70,8 +71,8 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
-    -- Super + j      -> Focus next client
-    awful.key({ modkey,           }, "j",
+    -- Super + j      -> Focus next client - Modified : Super + !
+    awful.key({ modkey,           }, "!",
         function ()
             awful.client.focus.byidx( 1)
         end,
@@ -80,8 +81,8 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
-    -- Super + k      -> Focus previous client
-    awful.key({ modkey,           }, "k",
+    -- Super + k      -> Focus previous client - Mofified : Super + :
+    awful.key({ modkey,           }, ":",
         function ()
             awful.client.focus.byidx(-1)
         end,
@@ -97,34 +98,40 @@ keys.globalkeys = awful.util.table.join(
 
     --{{{ Layout manipulation
     ----------------------------------------------------------------------------
-    -- Super + Shift + j -> Swap client to the left
-    awful.key({ modkey, shiftkey   }, "j", function () awful.client.swap.byidx(  1)    end,
+    -- Super + Shift + j -> Swap client to the left - Modifed : Super + Shift + !
+    awful.key({ modkey, shiftkey   }, "!", function () awful.client.swap.byidx(  1)    end,
         {description = "swap with next client by index", group = "client"}),
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
-    -- Super + Shift + k -> Swap client to the left
-    awful.key({ modkey, shiftkey   }, "k", function () awful.client.swap.byidx( -1)    end,
+    -- Super + Shift + k -> Swap client to the left - Modifed : Super + Shift + :
+    awful.key({ modkey, shiftkey   }, ":", function () awful.client.swap.byidx( -1)    end,
         {description = "swap with previous client by index", group = "client"}),
     ----------------------------------------------------------------------------
     -- }}}
 
+    -- {{{ Screen manipulation
     ----------------------------------------------------------------------------
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
+    -- Super + Control + j -> Go to next screen - Modified Super + Control + !
+    awful.key({ modkey, "Control" }, "!", function () awful.screen.focus_relative( 1) end,
         {description = "focus the next screen", group = "screen"}),
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
+    -- Super + Control + k -> Go to previous screen - Modified Super + Control + :
+    awful.key({ modkey, "Control" }, ":", function () awful.screen.focus_relative(-1) end,
         {description = "focus the previous screen", group = "screen"}),
     ----------------------------------------------------------------------------
+    -- }}}
 
     ----------------------------------------------------------------------------
+    -- Super + u -> Jump to urgent client
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
         {description = "jump to urgent client", group = "client"}),
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
+    -- Super + Tab -> Go back to previous client
     awful.key({ modkey,           }, "Tab",
         function ()
             awful.client.focus.history.previous()
@@ -137,6 +144,7 @@ keys.globalkeys = awful.util.table.join(
 
     -- {{{ Standard program
     ----------------------------------------------------------------------------
+    -- Super + Enter -> Open terminal
     awful.key({ modkey,           }, "Return", function () awful.spawn(vars.terminal) end,
         {description = "open a terminal", group = "launcher"}),
     ----------------------------------------------------------------------------
@@ -228,7 +236,37 @@ keys.globalkeys = awful.util.table.join(
     -- {{{ Menubar
     ----------------------------------------------------------------------------
     awful.key({ modkey }, "p", function() menubar.show() end,
-        {description = "show the menubar", group = "launcher"})
+        {description = "show the menubar", group = "launcher"}),
+    ----------------------------------------------------------------------------
+    -- }}}
+
+    -- {{{ PulseAudio
+    ----------------------------------------------------------------------------
+    awful.key({ }, "XF86AudioRaiseVolume",  APW.Up,
+        {description = "Increase volume", group = "peripherals"}),   -- Volume UP
+    awful.key({ }, "XF86AudioLowerVolume",  APW.Down,
+        {description = "Decrease volume", group = "peripherals"}), -- Volume DOWN
+    awful.key({ }, "XF86AudioMute",         APW.ToggleMute,
+        {description = "Mute", group = "peripherals"}), -- Mute
+    ----------------------------------------------------------------------------
+    -- }}}
+
+    -- {{{ TouchPad
+    ----------------------------------------------------------------------------
+    -- Does not work ? Touchpad is broken
+    awful.key({ }, "XF86TouchpadToggle",    function () os.execute ('touchpad') end,
+        {description = "Toggle touchpad", group = "peripherals"}),
+    ----------------------------------------------------------------------------
+    -- }}}
+
+    -- {{{ Control the backlight
+    ----------------------------------------------------------------------------
+    -- Decrease backlight
+    awful.key({ }, "XF86KbdBrightnessDown", function () os.execute ([[bash -c "backlight - 7"]]) end,
+        {description = "Decrease the screen backlight", group = "peripherals"}),
+    --Increase backlight
+    awful.key({ }, "XF86KbdBrightnessUp", function () os.execute ([[bash -c "backlight + 7"]]) end,
+        {description = "Increase the screen backlight", group = "peripherals"})
     ----------------------------------------------------------------------------
     -- }}}
 )

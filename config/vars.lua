@@ -18,4 +18,14 @@ vars.cores          = 4
 vars.battery        = "BAT0"
 vars.user           = os.getenv ("USER")
 
+vars.unclutter_command = "unclutter -root"
+vars.network_command   = "nm-applet"
+vars.pulse_command     = "pulseaudio --start"
+vars.compton_command   = "compton --backend glx --paint-on-overlay"..
+    " --glx-no-stencil --vsync opengl-swc --unredir-if-possible &"
+vars.autolock_command  = "xautolock -time 10 -locker 'i3lock-fancy -f Courier"..
+    " -p -t Locked'"
+vars.lock_command      = "i3lock-fancy -f Courier -p -t Locked"
+vars.redshift_command  = "redshift"
+
 return vars
