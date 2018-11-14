@@ -191,7 +191,7 @@ mpd.get_widget = function (theme)
                             mpd.cover = current_icon:gsub("\n", "")
                             if #mpd.cover == 0 then mpd.cover = nil end
                         else
-                            mpd.cover = nil
+                            mpd.cover = theme.widget_music_no_cover
                         end
                         if mpd.cover == nil then
                             current_icon = mpd.extract_image (infos)
@@ -200,7 +200,7 @@ mpd.get_widget = function (theme)
                             end
                         end
                     else
-                        mpd.cover = nil
+                        mpd.cover = theme.widget_music_no_cover
                     end
                     local message
                     if infos.title ~= "N/A" then
