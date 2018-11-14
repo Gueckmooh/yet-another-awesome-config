@@ -155,6 +155,13 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
+    -- Super + b -> Open ranger
+    awful.key({ modkey,           }, "b", function ()
+            awful.spawn.with_shell(vars.terminal .. " -e ranger") end,
+        {description = "open ranger", group = "launcher"}),
+    ----------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------------
     awful.key({ modkey, "Control" }, "r", awesome.restart,
         {description = "reload awesome", group = "awesome"}),
     ----------------------------------------------------------------------------
