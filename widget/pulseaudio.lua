@@ -8,8 +8,11 @@ local markup          = lain.util.markup
 local util            = require ("config.util")
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 local APW             = require("apw/widget")
+local vars            = require ("config.vars")
 
 local pulseaudio = {}
+
+local audiolayout_path = os.getenv ("HOME") .. "/.audiolayout"
 
 pulseaudio.get_widget = function (theme)
 
@@ -124,11 +127,70 @@ pulseaudio.get_widget = function (theme)
     pulse_widget:connect_signal("mouse::leave", function()
                                     naughty.destroy(pulse_notification) end)
 
+    local audiolayout = util.scandir (audiolayout_path)
+
+    pulseaudio.switcher = function (cmd, sink)
+        return function ()
+            local line = util.simple_exec (cmd)
+            local err = true
+            if line == nil or line == "" then
+                err = false
+            end
+            local message
+            local color_bg
+            local color_fg
+            local title
+            if err then
+                title = "Error while switching sink..."
+                message = string.format ("Could not find sink %s", sink)
+                color_bg = "#F06060"
+                color_fg = "#EEE9EF"
+            else
+                title = "Success !"
+                message = string.format ("Sink switched to %s", sink)
+                color_bg = theme.bg_normal
+                color_fg = theme.fg_normal
+            end
+            naughty.notify{
+                text =  message,
+                title = title,
+                bg = color_bg,
+                fg = color_fg,
+                timeout = 5, hover_timeout = 0.5,
+                width = 200,
+            }
+        end
+    end
+
+    local menu_content = {}
+    for _, layout in pairs (audiolayout)
+    do
+        local layout_name = layout:match ("(.-)%.([^.]+)$")
+        layout_name = layout_name:gsub ("_", " ")
+        local layout_exe = string.format ("bash -c '%s/%s 2>&1'", audiolayout_path,
+                                          layout)
+        menu_content[#menu_content + 1] = {layout_name, pulseaudio.switcher (layout_exe, layout_name)}
+    end
+
+    menu_content[#menu_content + 1] = {
+        "restart",
+        "bash -c 'pulseaudio -k && pulseaudio --start'"
+    }
+
+    pulseaudio.menu = awful.menu {
+        items =  menu_content
+    }
+
     pulse_widget:buttons (
         my_table.join(
             awful.button({ }, 1, function ()
                     APW.ToggleMute ()
                     pulseaudio.update ()
+            end),
+            awful.button({ }, 3, function ()
+                    pulseaudio.menu:toggle ()
+                    -- print ("Pouet")
+                    -- pulseaudio.update ()
             end),
             awful.button({ }, 4, function ()
                     APW.Up ()
