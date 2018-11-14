@@ -15,6 +15,8 @@ local APW             = require("apw/widget")
 local mpd             = require ("widget.mpd")
 local menubar         = require ("menubar")
 local pulseaudio      = require ("widget.pulseaudio")
+local util            = require ("config.util")
+local screenshot      = require ("widget.screenshot")
 
 local client          = client
 local root            = root
@@ -344,11 +346,17 @@ keys.globalkeys = awful.util.table.join(
     -- {{{ Screenshot
     ----------------------------------------------------------------------------
     -- imprime écran -> Screenshot
-    awful.key({ }, "#107", function () os.execute("screenshot") end,
+    awful.key({ }, "#107", function ()
+            local filename = util.simple_exec ("screenshot")
+            if screenshot.show_warning then screenshot.show_warning (filename) end
+                           end,
         {description = "Take screenshot", group = "util"}),
     -- Super + imprime écran -> Screenshot sur selection/client
     awful.key({ modkey }, "#107", function ()
-            awful.util.spawn_with_shell("sleep 0.1 && screenshot -s") end,
+            -- awful.util.spawn_with_shell("sleep 0.1 && screenshot -s")
+            local filename = util.simple_exec ("sleep 0.1 && screenshot -s")
+            if screenshot.show_warning then screenshot.show_warning (filename) end
+                                  end,
       {description = "Take screenshot by selecting region/client", group = "util"})
     ----------------------------------------------------------------------------
     -- }}}

@@ -337,6 +337,13 @@ local mpd_widget = mpd.get_widget (theme)
 
 -------------------- {{{ End MPD }}} ------------------------------------------
 
+-------------------- {{{ SCREENSHOT }}} ----------------------------------------
+
+local screenshot = require ("widget.screenshot")
+local screenshot_widget = screenshot.get_widget (theme)
+
+-------------------- {{{ End SCREENSHOT }}} ------------------------------------
+
 function theme.set_wallpaper(s)
     -- Wallpaper
     if theme.wallpaper then
