@@ -52,19 +52,21 @@ battery.get_widget = function (theme)
                 charge = tonumber(charge_str),
                 charging = sect == "on-line"
             }
+            local color = theme.fg_normal
             if battery_info.charging then
                 battery_icon:set_image (theme.widget_ac)
             else
                 battery_icon:set_image (theme.widget_battery)
-                if battery_info.charge < 7 then
+                if battery_info.charge < 15 then
                     if os.difftime(os.time(), last_battery_check) > 300
                     then
                         show_battery_warning ()
                         last_battery_check = os.time ()
                     end
+                    color =  "#FF8466"
                 end
             end
-            widget:set_markup(markup.fontfg(theme.font, theme.fg_normal,
+            widget:set_markup(markup.fontfg(theme.font, color,
                                             tostring (battery_info.charge).."%"))
         end
     )
