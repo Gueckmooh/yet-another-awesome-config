@@ -342,7 +342,7 @@ keys.globalkeys = awful.util.table.join(
     end),
     -- Super + Shift + Escape -> Lock + suspend
     awful.key({ modkey, shiftkey }, "Escape", function ()
-            os.execute(vars.lock_command .. " && xset dpms force off && systemctl suspend")
+            os.execute(vars.lock_command .. " && systemctl suspend")
     end),
     ----------------------------------------------------------------------------
     -- }}}
