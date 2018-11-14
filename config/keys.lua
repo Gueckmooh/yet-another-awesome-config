@@ -70,8 +70,8 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
-    -- Super + Escape -> Previous tag in history
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
+    -- Super + Escape -> Previous tag in history - Modified -> Super + Ctrl + Escape
+    awful.key({ modkey, ctrlkey     }, "Escape", awful.tag.history.restore,
         {description = "go back", group = "tag"}),
     ----------------------------------------------------------------------------
 
@@ -336,9 +336,13 @@ keys.globalkeys = awful.util.table.join(
 
     -- {{{ Lock
     ----------------------------------------------------------------------------
-    -- Super + escape -> launch browser
+    -- Super + Escape -> Lock
     awful.key({ modkey }, "Escape", function ()
             os.execute(vars.lock_command .. " && xset dpms force off")
+    end),
+    -- Super + Shift + Escape -> Lock + suspend
+    awful.key({ modkey, shiftkey }, "Escape", function ()
+            os.execute(vars.lock_command .. " && xset dpms force off && systemctl suspend")
     end),
     ----------------------------------------------------------------------------
     -- }}}
