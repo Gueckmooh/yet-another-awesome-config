@@ -378,7 +378,16 @@ keys.globalkeys = awful.util.table.join(
         function ()
             awful.spawn.with_shell ("emacsclient -c -e '(create-scratch-buffer)' &")
         end,
-    {description = "Launch emacs client", group = "launcher"})
+    {description = "Launch emacs client", group = "launcher"}),
+    ----------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------------
+    -- Super + e -> Open emacs client
+    awful.key ({modkey}, "c",
+        function ()
+            awful.spawn.with_shell ("caja &")
+        end,
+    {description = "Launch caja", group = "launcher"})
     ----------------------------------------------------------------------------
 
 )
