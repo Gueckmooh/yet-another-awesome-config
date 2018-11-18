@@ -368,9 +368,19 @@ keys.globalkeys = awful.util.table.join(
             local filename = util.simple_exec ("sleep 0.1 && screenshot -s")
             if screenshot.show_warning then screenshot.show_warning (filename) end
                                   end,
-      {description = "Take screenshot by selecting region/client", group = "util"})
+      {description = "Take screenshot by selecting region/client", group = "util"}),
     ----------------------------------------------------------------------------
     -- }}}
+
+    ----------------------------------------------------------------------------
+    -- Super + e -> Open emacs client
+    awful.key ({modkey}, "e",
+        function ()
+            awful.spawn.with_shell ("emacsclient -c -e '(create-scratch-buffer)' &")
+        end,
+    {description = "Launch emacs client", group = "launcher"})
+    ----------------------------------------------------------------------------
+
 )
 
 --[[
