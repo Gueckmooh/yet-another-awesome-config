@@ -54,4 +54,20 @@ util.sleep = function (sec)
     socket.select(nil, nil, sec)
 end
 
+function util.group_by (tab, entry)
+    local group = {}
+    if tab == nil then return nil end
+    if #tab == 0 then return nil end
+    for _, t in pairs (tab)
+    do
+        if t[entry] ~= nil
+        then
+            if group[t[entry]] == nil then group[t[entry]] = {} end
+            local g = group[t[entry]]
+            g[#g + 1] = t
+        end
+    end
+    return group
+end
+
 return util
