@@ -14,6 +14,7 @@ vars.terminal       = "gnome-terminal"
 vars.editor         = os.getenv ("EDITOR") or "emacsclient -t"
 vars.editor_cmd     = vars.terminal .. " -e " .. vars.editor
 vars.checkupdate    = "apt list --upgradable 2> /dev/null | awk -v FS=/ 'NR>1 {print $1}'"
+vars.checkupdate_f  = "apt list --upgradable 2> /dev/null | awk -v FS=/ 'NR>1 {print}'"
 vars.browser        = "firefox"
 vars.cores          = 4
 vars.battery        = "BAT0"

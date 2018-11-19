@@ -8,6 +8,7 @@ local markup          = lain.util.markup
 local vars            = require ("config.vars")
 local util            = require ("config.util")
 local startup         = require ("config.startup")
+local my_table        = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local pack = {}
 
@@ -20,6 +21,23 @@ pack.get_widget = function (theme)
         local upgradables = util.get_lines (pfile)
         pfile:close ()
         return upgradables
+    end
+
+    pack.get_update_infos = function ()
+        local pfile = io.popen (
+            vars.checkupdate_f
+        )
+        local upgradables = util.get_lines (pfile)
+        pfile:close ()
+        local infos = {}
+        for _, line in pairs (upgradables)
+        do
+            infos[#infos + 1] = {}
+            local i = infos[#infos]
+            i.package, i.repo, i.next, i.current =
+                line:match("([^\\]+)/(%a+) ([^ ]+)[^[]+%[upgradable from: ([^%]]+)%]")
+        end
+        return infos
     end
 
     local pack_notification
@@ -62,6 +80,31 @@ pack.get_widget = function (theme)
         }
     end
 
+    function pack.show_more_infos ()
+        local message = ""
+        local function printm (...)
+            message = message .. string.format (...)
+        end
+        local groups = util.group_by (pack.get_update_infos (), "repo")
+        if groups == nil then return end
+        for repo, _pack in pairs (groups)
+        do
+            printm ("\n%d package(s) in %s:\n", #_pack, repo)
+            for _, p in pairs (_pack)
+            do
+                printm ("\t%s: %s -> %s\n", p.package, p.current, p.next)
+            end
+        end
+        naughty.notify{
+            title = "List of packages to update:",
+            text = message,
+            timeout = 15, hover_timeout = 0.5,
+            position = "top_right",
+            bg = theme.bg_normal,
+            fg = "#EEE9EF",
+        }
+    end
+
     startup.register (function () if pack.nb ~= 0 then pack.show_warning () end end)
 
     pack.text = awful.widget.watch (
@@ -98,6 +141,13 @@ pack.get_widget = function (theme)
                                       pack.show_status() end)
     pack_widget:connect_signal("mouse::leave", function()
                                       naughty.destroy(pack_notification) end)
+
+    pack_widget:buttons (
+        my_table.join(
+            awful.button({ }, 1, function ()
+                    pack.show_more_infos ()
+            end)
+    ))
 
     return pack_widget
 
