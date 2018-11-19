@@ -382,12 +382,22 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
-    -- Super + e -> Open emacs client
+    -- Super + c -> Open caja
     awful.key ({modkey}, "c",
         function ()
             awful.spawn.with_shell ("caja &")
         end,
-    {description = "Launch caja", group = "launcher"})
+    {description = "Launch caja", group = "launcher"}),
+    ----------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------------
+    -- Super + Ctrl + o -> Open org dir
+    awful.key ({modkey, ctrlkey}, "o",
+        function ()
+            awful.spawn.with_shell ("emacsclient -c " .. os.getenv ("HOME") ..
+            "/org &")
+        end,
+        {description = "Open org directory with emacs", group = "launcher"})
     ----------------------------------------------------------------------------
 
 )
