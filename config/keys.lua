@@ -478,6 +478,14 @@ keys.clientkeys = awful.util.table.join(
             c.maximized = not c.maximized
             c:raise()
         end ,
+        {description = "maximize", group = "client"}),
+    ----------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------------
+    awful.key({ modkey, shiftkey  }, "t",
+        function (c)
+            awful.titlebar.toggle (c)
+        end ,
         {description = "maximize", group = "client"})
     ----------------------------------------------------------------------------
 )
