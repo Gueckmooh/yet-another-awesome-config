@@ -17,6 +17,7 @@ local menubar         = require ("menubar")
 local pulseaudio      = require ("widget.pulseaudio")
 local util            = require ("config.util")
 local screenshot      = require ("widget.screenshot")
+local translate       = require ("widget.translate")
 
 local client          = client
 local root            = root
@@ -397,7 +398,21 @@ keys.globalkeys = awful.util.table.join(
             awful.spawn.with_shell ("emacsclient -c " .. os.getenv ("HOME") ..
             "/org &")
         end,
-        {description = "Open org directory with emacs", group = "launcher"})
+        {description = "Open org directory with emacs", group = "launcher"}),
+    ----------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------------
+    -- Super + Shift + t -> translate
+    awful.key({ modkey, ctrlkey }, "t",
+        function ()
+            awful.prompt.run {
+                prompt       = "Translate: ",
+                textbox      = awful.screen.focused().mypromptbox.widget,
+                exe_callback = translate.notify,
+                history_path = awful.util.get_cache_dir() .. "/history_translate"
+            }
+        end,
+        {description = "Translate query", group = "util"})
     ----------------------------------------------------------------------------
 
 )
