@@ -108,6 +108,10 @@ mpd.get_widget = function (theme)
         local line = pfile:read "*l"
         pfile:close ()
         if line == nil then
+            -- pfile = io.popen ("exiftool \"".. realpath .."\" | awk '/Cover Art .* \\(Binary/'")
+            -- line = pfile:read "*l"
+            -- pfile:close ()
+            -- print (line)
             return nil
         end
         local file_ext = util.simple_exec ("exiftool \"".. realpath ..
@@ -138,7 +142,7 @@ mpd.get_widget = function (theme)
             else
                 mpd.cover = theme.widget_music_no_cover
             end
-            if mpd.cover == nil then
+            if mpd.cover == theme.widget_music_no_cover then
                 current_icon = mpd.extract_image (infos)
                 if current_icon ~= nil then
                     mpd.cover = current_icon
@@ -193,7 +197,7 @@ mpd.get_widget = function (theme)
                         else
                             mpd.cover = theme.widget_music_no_cover
                         end
-                        if mpd.cover == nil then
+                        if mpd.cover == theme.widget_music_no_cover then
                             current_icon = mpd.extract_image (infos)
                             if current_icon ~= nil then
                                 mpd.cover = current_icon
