@@ -27,8 +27,8 @@ theme.name = theme.list_themes[2]
 
 -- theme.name      = "powerarrow"
 -- theme.name      = "default"
-theme.directory     = os.getenv ("HOME") .. "/.config/awesome/themes"
--- theme.directory     = os.getenv ("HOME") .. "/git/yet_another_awesome_config/themes" -- CONFIG
+-- theme.directory     = os.getenv ("HOME") .. "/.config/awesome/themes"
+theme.directory     = os.getenv ("HOME") .. "/git/yet_another_awesome_config/themes" -- CONFIG
 theme.path          = string.format ("%s/%s/theme.lua", theme.directory, theme.name)
 
 -- local theming = require (theme.path)
