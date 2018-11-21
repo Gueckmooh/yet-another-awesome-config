@@ -16,6 +16,7 @@ local markup          = lain.util.markup
 local separators      = lain.util.separators
 local arrow           = separators.arrow_left
 local client          = client
+local vars            = require ("config.vars")
 
 local theme = {}
 
@@ -367,6 +368,7 @@ end
 theme.at_screen_connect = function (s)
     -- Wallpaper
     theme.set_wallpaper(s)
+    s.quake = lain.util.quake({ app = vars.terminal })
 
     -- Each screen has its own tag table.
     awful.tag(layout.tags, s, layout.default_layout)
