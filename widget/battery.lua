@@ -17,8 +17,9 @@ battery.get_widget = function (theme)
     local function show_battery_status()
         awful.spawn.easy_async([[bash -c 'acpi']],
             function(stdout, _, _, _)
+                local message = stdout:sub (0, stdout:len () -1)
                 battery_notification = naughty.notify{
-                    text =  stdout,
+                    text =  message,
                     title = "Battery status",
                     timeout = 5, hover_timeout = 0.5,
                     width = 200,
