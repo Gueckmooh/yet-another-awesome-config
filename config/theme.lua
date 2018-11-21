@@ -11,6 +11,7 @@ local awful     = require ("awful")
 local keys      = require ("config.keys")
 local wibox     = require ("wibox")
 
+
 local theme     = {}
 
 local screen    = screen
@@ -96,6 +97,10 @@ awful.rules.rules = {
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
       }, properties = { titlebars_enabled = true }
+    },
+
+    { rule_any = {name = { "QuakeDD" }
+      }, properties = { titlebars_enabled = false }
     },
 
     { rule_any = {class = { "mpv" }
