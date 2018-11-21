@@ -18,6 +18,7 @@ local pulseaudio      = require ("widget.pulseaudio")
 local util            = require ("config.util")
 local screenshot      = require ("widget.screenshot")
 local translate       = require ("widget.translate")
+local quakecfg        = require ("config.quake")
 
 local client          = client
 local root            = root
@@ -412,7 +413,14 @@ keys.globalkeys = awful.util.table.join(
                 history_path = awful.util.get_cache_dir() .. "/history_translate"
             }
         end,
-        {description = "Translate query", group = "util"})
+        {description = "Translate query", group = "util"}),
+    ----------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------------
+    -- Super + z -> Show dropdown terminak
+    awful.key({ modkey, }, "z", function ()
+            quakecfg.quake:toggle() end,
+        {description = "show dropdown terminal", group = "util"})
     ----------------------------------------------------------------------------
 
 )

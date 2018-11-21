@@ -69,7 +69,7 @@ function quake:display()
     client.sticky = false
     client.ontop = true
     client.above = true
-    client.skip_taskbar = true
+    client.type = "dropdown_terminal"
 
     -- Additional user settings
     if self.settings then self.settings(client) end
