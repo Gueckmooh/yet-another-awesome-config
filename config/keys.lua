@@ -419,7 +419,7 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- Super + z -> Show dropdown terminak
     awful.key({ modkey, }, "z", function ()
-            quakecfg.quake:toggle() end,
+            awful.screen.focused ().quake:toggle() end,
         {description = "show dropdown terminal", group = "util"})
     ----------------------------------------------------------------------------
 
