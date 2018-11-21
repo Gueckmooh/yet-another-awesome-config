@@ -302,9 +302,9 @@ mpd.get_widget = function (theme)
                         awful.spawn.with_shell ("mpd")
                     else
                         if mpd.get_infos ().state == "play" then
-                            awful.spawn.with_shell(vars.terminal .. " -e 'ncmpcpp -s visualizer'")
+                            awful.spawn.with_shell(vars.terminal .. " -e ncmpcpp -s visualizer")
                         else
-                            awful.spawn.with_shell(vars.terminal .. " -e 'ncmpcpp'")
+                            awful.spawn.with_shell(vars.terminal .. " -e ncmpcpp")
                         end
                     end
                     mpd.update ()
