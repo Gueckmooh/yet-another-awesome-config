@@ -23,8 +23,9 @@ vars.rofi           = "bash -c \"rofi -terminal gnome-terminal -show "
 vars.unclutter_command = "unclutter -root"
 vars.network_command   = "nm-applet"
 vars.pulse_command     = "pulseaudio --start"
-vars.compton_command   = "compton --backend glx --paint-on-overlay"..
-    " --glx-no-stencil --vsync opengl-swc --unredir-if-possible &"
+-- vars.compton_command   = "compton --backend glx --paint-on-overlay"..
+--     " --glx-no-stencil --vsync opengl-swc --unredir-if-possible &"
+vars.compton_command   = "compton &"
 vars.autolock_command  = "xautolock -time 10 -locker 'i3lock-fancy -f Courier"..
     " -p -t Locked'"
 vars.lock_command      = "i3lock-fancy -f Courier -p -t Locked"
