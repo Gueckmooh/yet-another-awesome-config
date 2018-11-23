@@ -29,8 +29,8 @@ vars.compton_command   = "compton &"
 -- vars.autolock_command  = "xautolock -time 10 -locker 'i3lock-fancy -f Courier"..
 --     " -p -t Locked'"
 -- vars.lock_command      = "i3lock-fancy -f Courier -p -t Locked"
-vars.autolock_command  = "xautolock -time 10 -locker 'awlock'"
 vars.lock_command      = "awlock"
+vars.autolock_command  = "xautolock -time 10 -locker '".. vars.lock_command .. "'"
 vars.redshift_command  = "redshift"
 
 vars.music_dir         = os.getenv ("HOME") .. "/Musique"
