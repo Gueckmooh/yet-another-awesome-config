@@ -18,7 +18,7 @@ vars.browser        = "firefox"
 vars.cores          = 4
 vars.battery        = "BAT0"
 vars.user           = os.getenv ("USER")
-vars.rofi           = "bash -c \"rofi -terminal gnome-terminal -show "
+vars.rofi           = "bash -c \"rofi -terminal " .. vars.terminal .. " -show "
 
 vars.unclutter_command = "unclutter -root"
 vars.network_command   = "nm-applet"
