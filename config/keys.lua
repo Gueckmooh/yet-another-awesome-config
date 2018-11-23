@@ -347,7 +347,7 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- Super + Escape -> Lock
     awful.key({ modkey }, "Escape", function ()
-            os.execute(vars.lock_command .. " && xset dpms force off")
+            os.execute(vars.lock_command)
     end),
     -- Super + Shift + Escape -> Lock + suspend
     awful.key({ modkey, shiftkey }, "Escape", function ()
