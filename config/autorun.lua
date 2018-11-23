@@ -9,6 +9,7 @@ autorun.list = {
     vars.pulse_command,
     vars.compton_command,
     vars.autolock_command,
+    "xss-lock -- " .. vars.lock_command,
     vars.redshift_command,
     "tap-to-click enable",
     "emacs --daemon",
