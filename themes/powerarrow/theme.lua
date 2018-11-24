@@ -368,7 +368,7 @@ end
 theme.at_screen_connect = function (s)
     -- Wallpaper
     theme.set_wallpaper(s)
-    s.quake = lain.util.quake({ app = vars.terminal })
+    s.quake = lain.util.quake({ app = vars.terminal, screen = s })
 
     -- Each screen has its own tag table.
     awful.tag(layout.tags, s, layout.default_layout)

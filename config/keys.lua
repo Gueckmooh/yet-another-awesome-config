@@ -18,7 +18,6 @@ local pulseaudio      = require ("widget.pulseaudio")
 local util            = require ("config.util")
 local screenshot      = require ("widget.screenshot")
 local translate       = require ("widget.translate")
-local quakecfg        = require ("config.quake")
 
 local client          = client
 local root            = root
@@ -419,7 +418,8 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- Super + z -> Show dropdown terminak
     awful.key({ modkey, }, "z", function ()
-            awful.screen.focused ().quake:toggle() end,
+            if awful.screen.focused ().quake ~= nil then
+            awful.screen.focused ().quake:toggle() end end,
         {description = "show dropdown terminal", group = "util"})
     ----------------------------------------------------------------------------
 
