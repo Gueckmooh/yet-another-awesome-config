@@ -70,4 +70,31 @@ function util.group_by (tab, entry)
     return group
 end
 
+function util.delete_tag()
+    local t = awful.screen.focused().selected_tag
+    if not t then return end
+    t:delete()
+end
+
+function util.add_tag()
+    awful.tag.add("NewTag",{screen= awful.screen.focused() }):view_only()
+end
+
+function util.rename_tag()
+    awful.prompt.run {
+        prompt       = "New tag name: ",
+        textbox      = awful.screen.focused().mypromptbox.widget,
+        exe_callback = function(new_name)
+            if not new_name or #new_name == 0 then return end
+
+            local t = awful.screen.focused().selected_tag
+            if t then
+                t.name = new_name
+            end
+        end
+    }
+end
+
+
+
 return util
