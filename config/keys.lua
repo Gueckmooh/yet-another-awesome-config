@@ -420,7 +420,18 @@ keys.globalkeys = awful.util.table.join(
     awful.key({ modkey, }, "z", function ()
             if awful.screen.focused ().quake ~= nil then
             awful.screen.focused ().quake:toggle() end end,
-        {description = "show dropdown terminal", group = "util"})
+        {description = "show dropdown terminal", group = "util"}),
+    ----------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------------
+    awful.key({ modkey,           }, "a", util.add_tag,
+        {description = "add a tag", group = "tag"}),
+    ----------------------------------------------------------------------------
+    awful.key({ modkey, shiftkey  }, "a", util.delete_tag,
+        {description = "delete the current tag", group = "tag"}),
+    ----------------------------------------------------------------------------
+    awful.key({ modkey, ctrlkey  }, "a", util.rename_tag,
+        {description = "rename the current tag", group = "tag"})
     ----------------------------------------------------------------------------
 
 )
