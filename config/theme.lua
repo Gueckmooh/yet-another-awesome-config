@@ -10,13 +10,16 @@ local beautiful = require ("beautiful")
 local awful     = require ("awful")
 local keys      = require ("config.keys")
 local wibox     = require ("wibox")
-
+local naughty   = require ("naughty")
 
 local theme     = {}
 
 local screen    = screen
 local client    = client
 local awesome   = awesome
+
+-- Modify the size of the dbus notif
+theme.notification_icon_size = 100
 
 theme.list_themes = {
     "default",
