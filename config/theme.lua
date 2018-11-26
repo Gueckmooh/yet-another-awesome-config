@@ -19,7 +19,7 @@ local client    = client
 local awesome   = awesome
 
 -- Modify the size of the dbus notif
-theme.notification_icon_size = 100
+naughty.config.defaults['icon_size'] = 100
 
 theme.list_themes = {
     "default",
