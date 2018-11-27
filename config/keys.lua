@@ -527,7 +527,7 @@ keys.clientkeys = awful.util.table.join(
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, layout.ntags do
+for i = 1, #layout.tags do
     keys.globalkeys = awful.util.table.join(
         keys.globalkeys,
 
