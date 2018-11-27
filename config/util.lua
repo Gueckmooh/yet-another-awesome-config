@@ -77,7 +77,7 @@ function util.delete_tag()
 end
 
 function util.add_tag()
-    awful.tag.add("NewTag",{screen= awful.screen.focused() }):view_only()
+    awful.tag.add("0",{screen= awful.screen.focused() }):view_only()
 end
 
 function util.rename_tag()
@@ -95,6 +95,22 @@ function util.rename_tag()
     }
 end
 
+function util.table_minus (list, used)
+    local t = {table.unpack (list)}
+    for _, i in pairs (used) do
+        table.remove(t, i)
+    end
+    table.sort (t)
+    return t
+end
 
+function util.rename_tags ()
+    local tags = awful.screen.focused ().tags
+    for i,t in pairs (tags) do
+        if tonumber (t.name) ~= nil then
+            t.name = tostring (i)
+        end
+    end
+end
 
 return util

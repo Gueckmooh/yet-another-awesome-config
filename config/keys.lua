@@ -426,10 +426,12 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
-    awful.key({ modkey,           }, "a", util.add_tag,
+    awful.key({ modkey,           }, "a", function () util.add_tag ()
+            util.rename_tags () end,
         {description = "add a tag", group = "tag"}),
     ----------------------------------------------------------------------------
-    awful.key({ modkey, shiftkey  }, "a", util.delete_tag,
+    awful.key({ modkey, shiftkey  }, "a", function () util.delete_tag ()
+            util.rename_tags () end,
         {description = "delete the current tag", group = "tag"}),
     ----------------------------------------------------------------------------
     awful.key({ modkey, ctrlkey  }, "a", util.rename_tag,
