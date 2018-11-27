@@ -42,6 +42,8 @@ local rightkey      = keys.rightkey
 local upkey         = keys.upkey
 local downkey       = keys.downkey
 
+keys.launcher_mode = {}
+
 --[[
   ____ _       _           _   _
  / ___| | ___ | |__   __ _| | | | _____ _   _ ___
@@ -396,7 +398,7 @@ keys.globalkeys = awful.util.table.join(
     awful.key ({modkey, ctrlkey}, "o",
         function ()
             awful.spawn.with_shell ("emacsclient -c " .. os.getenv ("HOME") ..
-            "/org &")
+                                        "/org &")
         end,
         {description = "Open org directory with emacs", group = "launcher"}),
     ----------------------------------------------------------------------------
@@ -424,15 +426,19 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
-    awful.key({ modkey,           }, "a", util.add_tag,
+    awful.key({ modkey,           }, "a", function () util.add_tag ()
+            util.rename_tags () end,
         {description = "add a tag", group = "tag"}),
     ----------------------------------------------------------------------------
-    awful.key({ modkey, shiftkey  }, "a", util.delete_tag,
+    awful.key({ modkey, shiftkey  }, "a", function () util.delete_tag ()
+            util.rename_tags () end,
         {description = "delete the current tag", group = "tag"}),
     ----------------------------------------------------------------------------
     awful.key({ modkey, ctrlkey  }, "a", util.rename_tag,
         {description = "rename the current tag", group = "tag"})
     ----------------------------------------------------------------------------
+    -- awful.key({ modkey, shiftkey  }, "o", function () root.keys (keys.launcher_mode) end,
+    --     {description = "rename the current tag", group = "tag"})
 
 )
 
@@ -593,6 +599,15 @@ keys.clientbuttons = awful.util.table.join(
     ----------------------------------------------------------------------------
     awful.button({ modkey }, 3, awful.mouse.client.resize)
     ----------------------------------------------------------------------------
+)
+
+keys.launcher_mode = awful.util.table.join(
+    ----------------------------------------------------------------------------
+    -- Super + s    -> show help
+    awful.key({           }, "Escape",      function () root.keys(keys.globalkeys) end,
+        {description="show help", group="awesome"}),
+    awful.key({           }, "e",      function () awful.spawn.with_shell ("emacsclient -c &") end,
+        {description="show help", group="awesome"})
 )
 
 -- {{{ Configure the keys
