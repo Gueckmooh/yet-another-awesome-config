@@ -1,5 +1,6 @@
 local socket = require ("socket")
 local awful  = require ("awful")
+local layout = require ("config.layout")
 
 local util = {}
 
@@ -77,7 +78,8 @@ function util.delete_tag()
 end
 
 function util.add_tag()
-    awful.tag.add("0",{screen= awful.screen.focused() }):view_only()
+    awful.tag.add("0",{screen= awful.screen.focused(),
+                       layout = layout.default_layout}):view_only()
 end
 
 function util.rename_tag()

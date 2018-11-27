@@ -35,4 +35,6 @@ vars.redshift_command  = "redshift"
 
 vars.music_dir         = os.getenv ("HOME") .. "/Musique"
 
+vars.conky             = os.getenv ("HOME") .. '/.config/conky/conky.sh'
+
 return vars
