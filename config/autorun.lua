@@ -14,6 +14,7 @@ autorun.list = {
     "tap-to-click enable",
     "emacs --daemon",
     "mpd",
+    vars.conky
 }
 
 util.run_once (autorun.list)
