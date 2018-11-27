@@ -35,8 +35,9 @@ layout.default_layout = layout.layouts[1]
 
 layout.tags =
     {
-        "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"
+        "1", "2", "3", "4", "5"--, "6", "7", "8", "9", "10", "11", "12"
     }
+layout.ntags = 12
 
 awful.layout.layouts = layout.layouts
 
