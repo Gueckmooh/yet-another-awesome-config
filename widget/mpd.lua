@@ -247,9 +247,15 @@ mpd.get_widget = function (theme)
         if mpd_infos.state == "play"
         then
             if mpd_infos.title ~= "N/A" then
+                local title = mpd_infos.title
+                title = title:sub(0, title:len () < 20 and title:len () or 20) ..
+                    (title:len () < 20 and '' or '...')
+                local artist = mpd_infos.artist
+                artist = artist:sub(0, artist:len () < 20 and artist:len () or 20) ..
+                    (artist:len () < 20 and '' or '...')
                 widget:set_markup (markup.fontfg (theme.font, color2,
-                                                  markup (color1, mpd_infos.artist)
-                                                      .. " " .. mpd_infos.title))
+                                                  markup (color1, artist)
+                                                      .. " " .. title))
             else
                 local filename = mpd_infos.file
                 if mpd_infos.file:len() > 24 then
