@@ -16,10 +16,6 @@ local client          = client
 local awesome         = awesome
 local root            = root
 
-local debian          = {}
-
-debian.menu           = require("debian.menu")
-
 local menu            = {}
 
 local modkey = "Mod4"
@@ -36,7 +32,6 @@ menu.awesomemenu = menu.awesomemenu or
 menu.mainmenu = menu.mainmenu or
     awful.menu({ items = {
                      { "awesome", menu.awesomemenu }, --, theme.awesome_icon },
-                     { "Debian", debian.menu.Debian_menu.Debian },
                      { "open terminal", vars.terminal }
                          }
     })
