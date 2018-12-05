@@ -115,4 +115,37 @@ function util.rename_tags ()
     end
 end
 
+util.make_scrolling = function (args)
+    local text     = args.text or args[1]
+    local step     = args.step or 1
+    local size     = args.size or 20
+    local strategy = args.strategy or 'preprocess'
+
+    if text:len () < size + 3 then
+        return function () return text end
+    end
+    if strategy == 'preprocess' then
+        local overflow = text:len () - size
+        local nsteps   = overflow / step
+        local t = {}
+        for i = 1, nsteps do
+            t[i] = text:sub ((i-1) * step - (i == nsteps and 3 or 0),
+                (i-1) * step + size + (i == 1 and 3 or 0))
+            t[i] = (i > 1 and '..' or '') .. t[i] .. (i < nsteps and '..' or '')
+        end
+        for _,i in pairs (t) do print (i) end
+        local n = 1
+        local scroller = function ()
+            local ret = t[n]
+            n = math.ceil (math.fmod (n + 1, nsteps))
+            print (n)
+            print (ret)
+            return ret
+        end
+        return scroller
+    else
+        print ("Error: " .. strategy .. " no such strategy..")
+    end
+end
+
 return util
