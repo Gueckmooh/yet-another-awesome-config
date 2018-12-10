@@ -639,7 +639,14 @@ theme.at_screen_connect = function (s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, menu.taglist_buttons)
+    s.mytaglist = awful.widget.taglist (
+        s,
+        -- awful.widget.taglist.filter.all,
+        function (t)
+            return #t:clients() > 0 or t.selected or t.index < 6
+        end,
+        menu.taglist_buttons
+    )
 
     -- Create a tasklist widget
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, menu.tasklist_buttons)
