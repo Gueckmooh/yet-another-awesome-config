@@ -29,7 +29,7 @@ theme.list_themes = {
     "zelda-pastel"
 }
 
-theme.name = theme.list_themes[5]
+theme.name = theme.list_themes[3]
 
 -- theme.name      = "powerarrow"
 -- theme.name      = "default"
