@@ -346,100 +346,100 @@ theme.titlebar_fg_focus                         = theme.fg_focus
 
 -- {{ titlebar_floating_button
 -- theme.titlebar_floating_button_normal                = nil
-theme.titlebar_floating_button_normal_active         = theme.dir .. "/titlebar/floating_normal_active.png"
+theme.titlebar_floating_button_normal_active         = theme.dir .. "/icons/titlebar/floating_normal_active.png"
 -- theme.titlebar_floating_button_normal_active_hover   = nil
 -- theme.titlebar_floating_button_normal_active_press   = nil
 
-theme.titlebar_floating_button_normal_inactive       = theme.dir .. "/titlebar/floating_normal_inactive.png"
+theme.titlebar_floating_button_normal_inactive       = theme.dir .. "icons/titlebar/floating_normal_inactive.png"
 -- theme.titlebar_floating_button_normal_inactive_hover = nil
 -- theme.titlebar_floating_button_normal_inactive_press = nil
 
 -- theme.titlebar_floating_button_focus                 = nil
-theme.titlebar_floating_button_focus_active          = theme.dir .. "/titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_focus_active          = theme.dir .. "/icons/titlebar/floating_focus_active.png"
 -- theme.titlebar_floating_button_focus_active_hover    = nil
 -- theme.titlebar_floating_button_focus_active_press    = nil
 
-theme.titlebar_floating_button_focus_inactive        = theme.dir .. "/titlebar/floating_focus_inactive.png"
+theme.titlebar_floating_button_focus_inactive        = theme.dir .. "/icons/titlebar/floating_focus_inactive.png"
 -- theme.titlebar_floating_button_focus_inactive_hover  = nil
 -- theme.titlebar_floating_button_focus_inactive_press  = nil
 -- }}
 
 -- {{ titlebar_maximized_button
 -- theme.titlebar_maximized_button_normal                = nil
-theme.titlebar_maximized_button_normal_active         = theme.dir .. "/titlebar/maximized_normal_active.png"
+theme.titlebar_maximized_button_normal_active         = theme.dir .. "/icons/titlebar/maximized_normal_active.png"
 -- theme.titlebar_maximized_button_normal_active_hover   = nil
 -- theme.titlebar_maximized_button_normal_active_press   = nil
 
-theme.titlebar_maximized_button_normal_inactive       = theme.dir .. "/titlebar/maximized_normal_inactive.png"
+theme.titlebar_maximized_button_normal_inactive       = theme.dir .. "/icons/titlebar/maximized_normal_inactive.png"
 -- theme.titlebar_maximized_button_normal_inactive_hover = nil
 -- theme.titlebar_maximized_button_normal_inactive_press = nil
 
 -- theme.titlebar_maximized_button_focus                 = nil
-theme.titlebar_maximized_button_focus_active          = theme.dir .. "/titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_focus_active          = theme.dir .. "/icons/titlebar/maximized_focus_active.png"
 -- theme.titlebar_maximized_button_focus_active_hover    = nil
 -- theme.titlebar_maximized_button_focus_active_press    = nil
 
-theme.titlebar_maximized_button_focus_inactive        = theme.dir .. "/titlebar/maximized_focus_inactive.png"
+theme.titlebar_maximized_button_focus_inactive        = theme.dir .. "/icons/titlebar/maximized_focus_inactive.png"
 -- theme.titlebar_maximized_button_focus_inactive_hover  = nil
 -- theme.titlebar_maximized_button_focus_inactive_press  = nil
 -- }}
 
 -- {{ titlebar_sticky_button
 -- theme.titlebar_sticky_button_normal                = nil
-theme.titlebar_sticky_button_normal_active         = theme.dir .. "/titlebar/sticky_normal_active.png"
+theme.titlebar_sticky_button_normal_active         = theme.dir .. "/icons/titlebar/sticky_normal_active.png"
 -- theme.titlebar_sticky_button_normal_active_hover   = nil
 -- theme.titlebar_sticky_button_normal_active_press   = nil
 
-theme.titlebar_sticky_button_normal_inactive       = theme.dir .. "/titlebar/sticky_normal_inactive.png"
+theme.titlebar_sticky_button_normal_inactive       = theme.dir .. "/icons/titlebar/sticky_normal_inactive.png"
 -- theme.titlebar_sticky_button_normal_inactive_hover = nil
 -- theme.titlebar_sticky_button_normal_inactive_press = nil
 
 -- theme.titlebar_sticky_button_focus                 = nil
-theme.titlebar_sticky_button_focus_active          = theme.dir .. "/titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_focus_active          = theme.dir .. "/icons/titlebar/sticky_focus_active.png"
 -- theme.titlebar_sticky_button_focus_active_hover    = nil
 -- theme.titlebar_sticky_button_focus_active_press    = nil
 
-theme.titlebar_sticky_button_focus_inactive        = theme.dir .. "/titlebar/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_focus_inactive        = theme.dir .. "/icons/titlebar/sticky_focus_inactive.png"
 -- theme.titlebar_sticky_button_focus_inactive_hover  = nil
 -- theme.titlebar_sticky_button_focus_inactive_press  = nil
 -- }}
 
 -- {{ titlebar_ontop_button
 -- theme.titlebar_ontop_button_normal                = nil
-theme.titlebar_ontop_button_normal_active         = theme.dir .. "/titlebar/ontop_normal_active.png"
+theme.titlebar_ontop_button_normal_active         = theme.dir .. "/icons/titlebar/ontop_normal_active.png"
 -- theme.titlebar_ontop_button_normal_active_hover   = nil
 -- theme.titlebar_ontop_button_normal_active_press   = nil
 
-theme.titlebar_ontop_button_focus_active          = theme.dir .. "/titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_focus_active          = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
 -- theme.titlebar_ontop_button_focus_active_hover    = nil
 -- theme.titlebar_ontop_button_focus_active_press    = nil
 
 -- theme.titlebar_ontop_button_focus                 = nil
-theme.titlebar_ontop_button_normal_inactive       = theme.dir .. "/titlebar/ontop_normal_inactive.png"
+theme.titlebar_ontop_button_normal_inactive       = theme.dir .. "/icons/titlebar/ontop_normal_inactive.png"
 -- theme.titlebar_ontop_button_normal_inactive_hover = nil
 -- theme.titlebar_ontop_button_normal_inactive_press = nil
 
-theme.titlebar_ontop_button_focus_inactive        = theme.dir .. "/titlebar/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_focus_inactive        = theme.dir .. "/icons/titlebar/ontop_focus_inactive.png"
 -- theme.titlebar_ontop_button_focus_inactive_hover  = nil
 -- theme.titlebar_ontop_button_focus_inactive_press  = nil
 -- }}
 
 -- {{ titlebar_minimize_button
-theme.titlebar_minimize_button_normal       = theme.dir .. "/titlebar/minimize_normal.png"
+theme.titlebar_minimize_button_normal       = theme.dir .. "/icons/titlebar/minimize_normal.png"
 -- theme.titlebar_minimize_button_normal_hover = nil
 -- theme.titlebar_minimize_button_normal_press = nil
 
-theme.titlebar_minimize_button_focus        = theme.dir .. "/titlebar/minimize_focus.png"
+theme.titlebar_minimize_button_focus        = theme.dir .. "/icons/titlebar/minimize_focus.png"
 -- theme.titlebar_minimize_button_focus_hover  = nil
 -- theme.titlebar_minimize_button_focus_press  = nil
 -- }}
 
 ---{{ titlebar_close_button
-theme.titlebar_close_button_normal          = theme.dir .. "/titlebar/close_normal.png"
+theme.titlebar_close_button_normal          = theme.dir .. "/icons/titlebar/close_normal.png"
 -- theme.titlebar_close_button_normal_hover    = nil
 -- theme.titlebar_close_button_normal_press    = nil
 
-theme.titlebar_close_button_focus           = theme.dir .. "/titlebar/close_focus.png"
+theme.titlebar_close_button_focus           = theme.dir .. "/icons/titlebar/close_focus.png"
 -- theme.titlebar_close_button_focus_hover     = nil
 -- theme.titlebar_close_button_focus_press     = nil
 -- }}
