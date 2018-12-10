@@ -23,10 +23,13 @@ local awesome   = awesome
 
 theme.list_themes = {
     "default",
-    "powerarrow"
+    "powerarrow",
+    "powerarrow+",
+    "kawai-desu-ne",
+    "zelda-pastel"
 }
 
-theme.name = theme.list_themes[2]
+theme.name = theme.list_themes[3]
 
 -- theme.name      = "powerarrow"
 -- theme.name      = "default"
