@@ -117,7 +117,8 @@ awful.rules.rules = {
                  }, properties = {
           floating = true,
           titlebars_enabled = false,
-          width = 800
+          width = 800,
+          size_hints_honor = true
                  } -- For mpv video
     },
 
