@@ -666,7 +666,6 @@ theme.at_screen_connect = function (s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
 
             --------------------------------------------------------------------
             arrow("alpha", theme.arrows.color[#theme.arrows.color]),
