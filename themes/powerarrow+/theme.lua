@@ -608,6 +608,13 @@ theme.widgets.screenshot_widget = screenshot.get_widget (theme)
 
 -------------------- {{{ End SCREENSHOT }}} ------------------------------------
 
+-------------------- {{{ TRANSLATE }}} -----------------------------------------
+
+local translate = require ("widget.translate")
+translate.create_widget (theme)
+
+-------------------- {{{ End TRANSLATE }}} -------------------------------------
+
 function theme.set_wallpaper(s)
     -- Wallpaper
     if theme.wallpaper then
