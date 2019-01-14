@@ -601,14 +601,14 @@ keys.clientbuttons = awful.util.table.join(
     ----------------------------------------------------------------------------
 )
 
-keys.launcher_mode = awful.util.table.join(
-    ----------------------------------------------------------------------------
-    -- Super + s    -> show help
-    awful.key({           }, "Escape",      function () root.keys(keys.globalkeys) end,
-        {description="show help", group="awesome"}),
-    awful.key({           }, "e",      function () awful.spawn.with_shell ("emacsclient -c &") end,
-        {description="show help", group="awesome"})
-)
+-- keys.launcher_mode = awful.util.table.join(
+--     ----------------------------------------------------------------------------
+--     -- Super + s    -> show help
+--     awful.key({           }, "Escape",      function () root.keys(keys.globalkeys) end,
+--         {description="show help", group="awesome"}),
+--     awful.key({           }, "e",      function () awful.spawn.with_shell ("emacsclient -c &") end,
+--         {description="show help", group="awesome"})
+-- )
 
 -- {{{ Configure the keys
 root.keys(keys.globalkeys)
