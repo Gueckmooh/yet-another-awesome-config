@@ -99,6 +99,26 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
+    -- Super + j      -> Focus next client - Modified : Super + !
+    awful.key({ modkey,           }, "k",
+        function ()
+            awful.client.focus.byidx( 1)
+        end,
+        {description = "focus next by index", group = "client"}
+    ),
+    ----------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------------
+    -- Super + k      -> Focus previous client - Mofified : Super + :
+    awful.key({ modkey,           }, "j",
+        function ()
+            awful.client.focus.byidx(-1)
+        end,
+        {description = "focus previous by index", group = "client"}
+    ),
+    ----------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------------
     -- Super + w      -> Show main menu
     awful.key({ modkey,           }, "w", function () menu.mainmenu:show() end,
         {description = "show main menu", group = "awesome"}),
