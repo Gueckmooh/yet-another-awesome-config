@@ -488,6 +488,11 @@ keys.clientkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
+    awful.key({ modkey,           }, "y",      function (c) c.sticky = not c.sticky            end,
+        {description = "toggle sticky", group = "client"}),
+    ----------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------------
     awful.key({ modkey,           }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
