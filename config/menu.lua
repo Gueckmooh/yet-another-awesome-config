@@ -115,10 +115,10 @@ menu.tasklist_buttons = awful.util.table.join(
 -- {{{ Real config, do not touch
 menubar.utils.terminal = vars.terminal
 
-root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () menu.mainmenu:toggle() end),
-    awful.button({ }, 4, awful.tag.viewnext),
-    awful.button({ }, 5, awful.tag.viewprev)
-))
+-- root.buttons(awful.util.table.join(
+--     awful.button({ }, 3, function () menu.mainmenu:toggle() end),
+--     awful.button({ }, 4, awful.tag.viewnext),
+--     awful.button({ }, 5, awful.tag.viewprev)
+-- ))
 
 return menu
