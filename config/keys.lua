@@ -435,10 +435,20 @@ keys.globalkeys = awful.util.table.join(
         {description = "delete the current tag", group = "tag"}),
     ----------------------------------------------------------------------------
     awful.key({ modkey, ctrlkey  }, "a", util.rename_tag,
-        {description = "rename the current tag", group = "tag"})
+        {description = "rename the current tag", group = "tag"}),
     ----------------------------------------------------------------------------
     -- awful.key({ modkey, shiftkey  }, "o", function () root.keys (keys.launcher_mode) end,
     --     {description = "rename the current tag", group = "tag"})
+
+    ----------------------------------------------------------------------------
+    -- Super + c -> Open caja
+    awful.key ({modkey, shiftkey}, "y",
+        function ()
+            os.execute ("/home/brignone/bin/repair-screen")
+        end,
+    {description = "Repair screen", group = "util"})
+    ----------------------------------------------------------------------------
+
 
 )
 
