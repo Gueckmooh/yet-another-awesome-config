@@ -331,7 +331,7 @@ keys.globalkeys = awful.util.table.join(
     -- Super + Control + f -> launch browser
     awful.key({ modkey, ctrlkey }, "f", function ()
             awful.spawn.with_shell(vars.browser)
-    end),
+    end, {description = "Open browser", group = "Launcher"}),
     ----------------------------------------------------------------------------
     -- }}}
 
