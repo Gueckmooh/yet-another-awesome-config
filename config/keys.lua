@@ -121,13 +121,13 @@ keys.globalkeys = awful.util.table.join(
     -- {{{ Screen manipulation
     ----------------------------------------------------------------------------
     -- Super + Control + j -> Go to next screen - Modified Super + Control + !
-    awful.key({ modkey, "Control" }, "!", function () awful.screen.focus_relative( 1) end,
+    awful.key({ modkey, "Control" }, "!", function () awful.screen.focus_relative(-1) end,
         {description = "focus the next screen", group = "screen"}),
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
     -- Super + Control + k -> Go to previous screen - Modified Super + Control + :
-    awful.key({ modkey, "Control" }, ":", function () awful.screen.focus_relative(-1) end,
+    awful.key({ modkey, "Control" }, ":", function () awful.screen.focus_relative( 1) end,
         {description = "focus the previous screen", group = "screen"}),
     ----------------------------------------------------------------------------
     -- }}}
