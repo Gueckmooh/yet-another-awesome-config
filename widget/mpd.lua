@@ -154,7 +154,7 @@ mpd.get_widget = function (theme)
         local message
         if infos.title ~= "N/A" then
             message = string.format (
-                "%s (%s) - %s\n"..
+                "%s - %s (%s)\n"..
                     "%s",
                 infos.artist, infos.album, infos.date,
                 infos.title
@@ -209,7 +209,7 @@ mpd.get_widget = function (theme)
                     local message
                     if infos.title ~= "N/A" then
                         message = string.format (
-                            "%s (%s) - %s\n"..
+                            "%s - %s (%s)\n"..
                                 "%s",
                             infos.artist, infos.album, infos.date,
                             infos.title
