@@ -444,7 +444,8 @@ keys.globalkeys = awful.util.table.join(
     -- Super + c -> Open caja
     awful.key ({modkey, shiftkey}, "y",
         function ()
-            os.execute ("/home/brignone/bin/repair-screen")
+            -- os.execute ("/home/brignone/bin/repair-screen")
+            os.execute ("xrandr")
         end,
     {description = "Repair screen", group = "util"})
     ----------------------------------------------------------------------------
