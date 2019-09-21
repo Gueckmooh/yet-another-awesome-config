@@ -33,14 +33,13 @@ theme.name = theme.list_themes[3]
 
 -- theme.name      = "powerarrow"
 -- theme.name      = "default"
-theme.directory     = os.getenv ("HOME") .. "/.config/awesome/themes"
--- theme.directory     = os.getenv ("HOME") .. "/git/yet_another_awesome_config/themes" -- CONFIG
+-- theme.directory     = os.getenv ("HOME") .. "/.config/awesome/themes"
+theme.directory     = os.getenv ("HOME") .. "/git/yet-another-awesome-config/themes" -- CONFIG
 theme.path          = string.format ("%s/%s/theme.lua", theme.directory, theme.name)
 
 -- local theming = require (theme.path)
 
 beautiful.init (theme.path)
-
 theme.awesome_icon = beautiful.awesome_icon
 
 awful.screen.connect_for_each_screen(
