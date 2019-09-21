@@ -1,4 +1,3 @@
-local socket = require ("socket")
 local awful  = require ("awful")
 local layout = require ("config.layout")
 

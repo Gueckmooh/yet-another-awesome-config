@@ -16,10 +16,11 @@ local vars            = require ("config.vars")
 
 local theme = {}
 
+
 -- Default variables
 theme.name = "powerarrow"
 -- theme.dir = os.getenv ("HOME") .. "/.config/awesome/themes/" .. theme.name
-theme.dir = "/home/brignone/git/yet_another_awesome_config/themes/" .. theme.name -- CONFIG
+theme.dir = "/home/brignone/git/yet-another-awesome-config/themes/" .. theme.name -- CONFIG
 theme.font = "xos4 Terminus 9"
 theme.wallpaper_dir = theme.dir .. "/wallpapers"
 theme.wallpaper = util.get_wall(theme.dir .. "/wallpapers")
@@ -487,7 +488,7 @@ theme.widget_music                              = theme.dir .. "/icons/note.png"
 theme.widget_music_on                           = theme.dir .. "/icons/note_on.png"
 theme.widget_music_pause                        = theme.dir .. "/icons/pause.png"
 theme.widget_music_stop                         = theme.dir .. "/icons/stop.png"
-theme.widget_music_no_cover                     = theme.dir .. "/icons/no_cover.png"
+theme.widget_music_default_art                  = theme.dir .. "/icons/no_cover.png"
 theme.widget_vol                                = theme.dir .. "/icons/vol.png"
 theme.widget_vol_low                            = theme.dir .. "/icons/vol_low.png"
 theme.widget_vol_no                             = theme.dir .. "/icons/vol_no.png"
@@ -596,8 +597,8 @@ theme.widgets.pack_widget = pack.get_widget (theme)
 
 -------------------- {{{ MPD }}} ----------------------------------------------
 
-local mpd = require ("widget.mpd")
-theme.widgets.mpd_widget = mpd.get_widget (theme)
+local mpd = require ("cuddly-succotash.widgets.wibox.mpd")
+theme.widgets.mpd_widget = mpd ({music_dir = os.getenv("HOME") .. "/Musique"}, theme).widget
 
 -------------------- {{{ End MPD }}} ------------------------------------------
 
