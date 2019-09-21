@@ -540,8 +540,9 @@ theme.widgets = {}
 
 -------------------- {{{ Clock }}} ---------------------------------------------
 
-local clock = require ("widget.clock")
-theme.widgets.clock_widget = clock.get_widget (theme)
+local clock = require ("cuddly-succotash.widgets.wibox.clock")
+theme.widgets.clock_widget = clock.factory ({}, theme).widget
+print (theme.widgets.clock_widget)
 
 -------------------- {{{ End Clock }}} -----------------------------------------
 
