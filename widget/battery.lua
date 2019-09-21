@@ -47,7 +47,7 @@ battery.get_widget = function (theme)
         10,
         function (widget, stdout)
             local _, status, charge_str, sect =
-                string.match(stdout, '(.+): (%a+), (%d?%d?%d)%%,.* Adapter 0: (%a+.%a+)')
+              string.match(stdout, '(.+): (%a+), (%d?%d?%d)%%.* Adapter 0: (%a+.%a+)')
             local battery_info = {
                 status = status,
                 charge = tonumber(charge_str),
