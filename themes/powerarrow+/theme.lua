@@ -598,7 +598,11 @@ theme.widgets.pack_widget = pack.get_widget (theme)
 -------------------- {{{ MPD }}} ----------------------------------------------
 
 local mpd = require ("cuddly-succotash.widgets.wibox.mpd")
-theme.widgets.mpd_widget = mpd ({music_dir = os.getenv("HOME") .. "/Musique"}, theme).widget
+theme.widgets.mpd_widget = mpd (
+  {
+    music_dir = os.getenv("HOME") .. "/Musique",
+    port = "6601"
+  }, theme).widget
 
 -------------------- {{{ End MPD }}} ------------------------------------------
 
