@@ -33,11 +33,16 @@ theme.name = theme.list_themes[3]
 
 -- theme.name      = "powerarrow"
 -- theme.name      = "default"
--- theme.directory     = os.getenv ("HOME") .. "/.config/awesome/themes"
-theme.directory     = os.getenv ("HOME") .. "/git/yet-another-awesome-config/themes" -- CONFIG
+theme.directory     = os.getenv ("HOME") .. "/.config/awesome/themes"
+-- theme.directory     = os.getenv ("HOME") .. "/git/yet-another-awesome-config/themes" -- CONFIG
 theme.path          = string.format ("%s/%s/theme.lua", theme.directory, theme.name)
 
 -- local theming = require (theme.path)
+local naughty = require "naughty"
+
+naughty.notify {
+  text = theme.path
+}
 
 beautiful.init (theme.path)
 theme.awesome_icon = beautiful.awesome_icon

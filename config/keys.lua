@@ -12,12 +12,13 @@ local menu            = require ("config.menu")
 local layout          = require ("config.layout")
 local vars            = require ("config.vars")
 local APW             = require("apw/widget")
-local mpd             = require ("widget.mpd")
+local mpd             = require ("cuddly-succotash.widgets.wibox.mpd")
 local menubar         = require ("menubar")
 local pulseaudio      = require ("widget.pulseaudio")
 local util            = require ("config.util")
 local screenshot      = require ("widget.screenshot")
 local translate       = require ("widget.translate")
+local naughty = require "naughty"
 
 local client          = client
 local root            = root
@@ -296,33 +297,38 @@ keys.globalkeys = awful.util.table.join(
 
     -- {{{ MPD keys
     ----------------------------------------------------------------------------
-    awful.key({ }, "XF86AudioPlay", function ()
-            if mpd.get_infos ().state == "N/A" then
-                awful.spawn.with_shell ("mpd")
-            else
-                awful.spawn.with_shell("mpc -p " .. mpd.port .. " toggle")
-            end
-            if mpd.update then mpd.update () end
-        end,
-        {description = "Play/Pause music", group = "Music"}),
-    awful.key({ }, "XF86AudioPrev", function ()
-            awful.spawn.with_shell("mpc -p " .. mpd.port .. " prev")
-            if mpd.update then mpd.update () end
-    end, {description = "Play previous music", group = "Music"}),
-    awful.key({ }, "XF86AudioNext", function ()
-            awful.spawn.with_shell("mpc -p " .. mpd.port .. " next")
-            if mpd.update then mpd.update () end
-    end, {description = "Play next music", group = "Music"}),
-    awful.key({ }, "XF86AudioStop", function ()
-            awful.spawn.with_shell("mpc -p " .. mpd.port .. " stop")
-            if mpd.update then mpd.update () end
-    end, {description = "Stop Music", group = "Music"}),
-    awful.key({ modkey, shiftkey }, "m", function ()
-            if mpd.get_infos ().state == "N/A" then
-                awful.spawn.with_shell ("mpd")
-            end
-            awful.spawn.with_shell(vars.terminal .. " -e ncmpcpp")
-    end, {description = "Open ncmpcpp", group = "Music"}),
+    awful.key({ }, "XF86AudioPlay",
+      function ()
+        local mpd = mpd.get_instance ()
+        awful.spawn.with_shell("mpc -p " .. mpd.port .. " toggle")
+        if mpd then
+          mpd.update ()
+        end
+      end,
+      {description = "Play/Pause music", group = "Music"}),
+    awful.key({ }, "XF86AudioPrev",
+      function ()
+        local mpd = mpd.get_instance ()
+        awful.spawn.with_shell("mpc -p " .. mpd.port .. " prev")
+        if mpd.update then mpd.update () end
+      end, {description = "Play previous music", group = "Music"}),
+    awful.key({ }, "XF86AudioNext",
+      function ()
+        local mpd = mpd.get_instance ()
+        awful.spawn.with_shell("mpc -p " .. mpd.port .. " next")
+        if mpd.update then mpd.update () end
+      end, {description = "Play next music", group = "Music"}),
+    awful.key({ }, "XF86AudioStop",
+      function ()
+        local mpd = mpd.get_instance ()
+        awful.spawn.with_shell("mpc -p " .. mpd.port .. " stop")
+        if mpd.update then mpd.update () end
+      end, {description = "Stop Music", group = "Music"}),
+    awful.key({ modkey, shiftkey }, "m",
+      function ()
+        local mpd = mpd.get_instance ()
+        awful.spawn.with_shell(vars.terminal .. " -e ncmpcpp")
+      end, {description = "Open ncmpcpp", group = "Music"}),
     ----------------------------------------------------------------------------
     -- }}}
 
