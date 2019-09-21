@@ -17,7 +17,7 @@ local audiolayout_path = os.getenv ("HOME") .. "/.audiolayout"
 pulseaudio.get_widget = function (theme)
 
     function pulseaudio.get_current_sink ()
-        local pfile = io.popen ("pacmd list-sinks | awk '/  \\* index: ./ {y=\"oui\";next} y==\"oui\" {print;exit}' | sed 's/^.*name\\: <\\(.*\\)>.*$/\\1/'")
+        local pfile = io.popen ("pacmd list-sinks | awk '/  \\* index\\\\: ./ {y=\"oui\";next} y==\"oui\" {print;exit}' | sed 's/^.*name\\\\: <\\(.*\\)>.*$/\\1/'")
         local line = pfile:read "*l"
         pfile:close ()
         return line
@@ -38,7 +38,7 @@ pulseaudio.get_widget = function (theme)
     function pulseaudio.show_status()
         awful.spawn.easy_async(
             "bash -c \"pacmd list-sinks | awk \\\"/" ..
-                "$(pacmd list-sinks | awk '/  \\* index: ./ {y=1;next} y==1 {print;exit}' | sed 's/^.*name\\: <\\(.*\\)>.*$/\\1/')" ..
+                "$(pacmd list-sinks | awk '/  \\* index\\\\: ./ {y=1;next} y==1 {print;exit}' | sed 's/^.*name\\\\: <\\(.*\\)>.*$/\\1/')" ..
                 "/ {y=1;next} y && /active port/ {print;exit}\\\" |"..
                 " sed 's/.*<\\(.*\\)>/\\1/' | sed 's/-/ /g'\""
             ,
@@ -57,7 +57,7 @@ pulseaudio.get_widget = function (theme)
     function pulseaudio.is_muted ()
         local pfile = io.popen (
             "bash -c \"pacmd list-sinks | awk \\\"/" ..
-                "$(pacmd list-sinks | awk '/  \\* index: ./ {y=1;next} y==1 {print;exit}' | sed 's/^.*name\\: <\\(.*\\)>.*$/\\1/')" ..
+                "$(pacmd list-sinks | awk '/  \\* index\\\\: ./ {y=1;next} y==1 {print;exit}' | sed 's/^.*name\\\\: <\\(.*\\)>.*$/\\1/')" ..
                 "/ {y=1;next} /muted/ && y {print;exit}\\\" | sed 's/^.*\\(yes\\|no\\).*$/\\1/' \""
         )
         local line = pfile:read "*l"
@@ -98,14 +98,14 @@ pulseaudio.get_widget = function (theme)
 
     pulseaudio.text = awful.widget.watch (
         "bash -c \"pacmd list-sinks | awk \\\"/" ..
-            "$(pacmd list-sinks | awk '/  \\* index: ./ {y=1;next} y==1 {print;exit}' | sed 's/^.*name\\: <\\(.*\\)>.*$/\\1/')" ..
+            "$(pacmd list-sinks | awk '/  \\* index\\\\: ./ {y=1;next} y==1 {print;exit}' | sed 's/^.*name\\\\: <\\(.*\\)>.*$/\\1/')" ..
             "/ {y=1;next} /volume/ && y {print;exit}\\\"\"",
         1, pulseaudio.text_updater)
 
     pulseaudio.update = function ()
         local stdout = util.simple_exec (
             "bash -c \"pacmd list-sinks | awk \\\"/" ..
-            "$(pacmd list-sinks | awk '/  \\* index: ./ {y=1;next} y==1 {print;exit}' | sed 's/^.*name\\: <\\(.*\\)>.*$/\\1/')" ..
+            "$(pacmd list-sinks | awk '/  \\* index\\\\: ./ {y=1;next} y==1 {print;exit}' | sed 's/^.*name\\\\: <\\(.*\\)>.*$/\\1/')" ..
             "/ {y=1;next} /volume/ && y {print;exit}\\\"\""
         )
         pulseaudio.text_updater (pulseaudio.text, stdout)

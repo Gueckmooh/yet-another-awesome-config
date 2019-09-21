@@ -8,7 +8,6 @@
 local naughty         = require("naughty")
 local config          = require("config.init")
 
--- require("debian.menu")
 require("awful.autofocus")
 
 -- {{{ Configuration of the theme
