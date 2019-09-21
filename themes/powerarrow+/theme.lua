@@ -19,8 +19,8 @@ local theme = {}
 
 -- Default variables
 theme.name = "powerarrow"
--- theme.dir = os.getenv ("HOME") .. "/.config/awesome/themes/" .. theme.name
-theme.dir = "/home/brignone/git/yet-another-awesome-config/themes/" .. theme.name -- CONFIG
+theme.dir = os.getenv ("HOME") .. "/.config/awesome/themes/" .. theme.name
+-- theme.dir = "/home/brignone/git/yet-another-awesome-config/themes/" .. theme.name -- CONFIG
 theme.font = "xos4 Terminus 9"
 theme.wallpaper_dir = theme.dir .. "/wallpapers"
 theme.wallpaper = util.get_wall(theme.dir .. "/wallpapers")
@@ -598,7 +598,7 @@ theme.widgets.pack_widget = pack.get_widget (theme)
 -------------------- {{{ MPD }}} ----------------------------------------------
 
 local mpd = require ("cuddly-succotash.widgets.wibox.mpd")
-theme.widgets.mpd_widget = mpd (
+theme.widgets.mpd_widget = mpd.factory (
   {
     music_dir = os.getenv("HOME") .. "/Musique",
     port = "6601"
