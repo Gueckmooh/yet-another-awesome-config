@@ -38,11 +38,6 @@ theme.directory     = os.getenv ("HOME") .. "/.config/awesome/themes"
 theme.path          = string.format ("%s/%s/theme.lua", theme.directory, theme.name)
 
 -- local theming = require (theme.path)
-local naughty = require "naughty"
-
-naughty.notify {
-  text = theme.path
-}
 
 beautiful.init (theme.path)
 theme.awesome_icon = beautiful.awesome_icon
