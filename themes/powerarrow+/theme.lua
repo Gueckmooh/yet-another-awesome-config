@@ -590,8 +590,8 @@ theme.widgets.fs_widget = fs.get_widget (theme)
 
 -------------------- {{{ PACK }}} ----------------------------------------------
 
-local pack = require ("widget.pack")
-theme.widgets.pack_widget = pack.get_widget (theme)
+local pacman = require ("cuddly-succotash.widgets.wibox.pacman")
+theme.widgets.pack_widget = pacman.factory ({}, theme).widget
 
 -------------------- {{{ End PACK }}} ------------------------------------------
 
