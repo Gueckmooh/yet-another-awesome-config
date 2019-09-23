@@ -260,17 +260,17 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     awful.key({ }, "XF86AudioRaiseVolume",  function ()
             APW.Up ()
-            if pulseaudio.update then pulseaudio.update () end
+            -- if pulseaudio.update then pulseaudio.update () end
             end,
         {description = "Increase volume", group = "peripherals"}),   -- Volume UP
     awful.key({ }, "XF86AudioLowerVolume",  function ()
             APW.Down ()
-            if pulseaudio.update then pulseaudio.update () end
+            -- if pulseaudio.update then pulseaudio.update () end
             end,
         {description = "Decrease volume", group = "peripherals"}), -- Volume DOWN
     awful.key({ }, "XF86AudioMute",         function ()
             APW.ToggleMute ()
-            if pulseaudio.update then pulseaudio.update () end
+            -- if pulseaudio.update then pulseaudio.update () end
             end,
         {description = "Mute", group = "peripherals"}), -- Mute
     ----------------------------------------------------------------------------
