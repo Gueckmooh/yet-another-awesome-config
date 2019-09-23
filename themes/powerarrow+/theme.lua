@@ -46,7 +46,7 @@ theme.bg_systray  = "#343434"
 theme.fg_normal   = "#FEFEFE"
 theme.fg_focus    = "#32D6FF"
 theme.fg_urgent   = "#C83F11"
--- theme.fg_minimize = nil
+theme.fg_minimize = "#888888"
 
 -- border\
 -- theme.border_marked = nil
