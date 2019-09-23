@@ -542,14 +542,13 @@ theme.widgets = {}
 
 local clock = require ("cuddly-succotash.widgets.wibox.clock")
 theme.widgets.clock_widget = clock.factory ({}, theme).widget
-print (theme.widgets.clock_widget)
 
 -------------------- {{{ End Clock }}} -----------------------------------------
 
 -------------------- {{{ Battery }}} -------------------------------------------
 
-local battery = require ("widget.battery")
-theme.widgets.battery_widget = battery.get_widget (theme)
+local battery = require ("cuddly-succotash.widgets.wibox.battery")
+theme.widgets.battery_widget = battery.factory ({}, theme).widget
 
 -------------------- {{{ End Battery }}} ---------------------------------------
 
