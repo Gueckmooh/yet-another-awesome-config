@@ -569,8 +569,8 @@ theme.widgets.temp_widget = temp.get_widget (theme)
 
 -------------------- {{{ CPU }}} -----------------------------------------------
 
-local cpu = require ("widget.cpu")
-theme.widgets.cpu_widget = cpu.get_widget (theme)
+local cpu = require ("cuddly-succotash.widgets.wibox.cpu")
+theme.widgets.cpu_widget = cpu.factory ({}, theme).widget
 
 -------------------- {{{ End CPU }}} -------------------------------------------
 
