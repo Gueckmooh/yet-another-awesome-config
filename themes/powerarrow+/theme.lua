@@ -576,8 +576,10 @@ theme.widgets.cpu_widget = cpu.factory ({}, theme).widget
 
 -------------------- {{{ MEM }}} -----------------------------------------------
 
-local mem = require ("widget.mem")
-theme.widgets.mem_widget = mem.get_widget (theme)
+local mem = require ("cuddly-succotash.widgets.wibox.mem")
+theme.widgets.mem_widget = mem.factory ({}, theme).widget
+-- local mem = require ("widget.mem")
+-- theme.widgets.mem_widget = mem.get_widget (theme)
 
 -------------------- {{{ End MEM }}} -------------------------------------------
 
