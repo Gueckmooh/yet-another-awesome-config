@@ -14,7 +14,8 @@ local vars            = require ("config.vars")
 local APW             = require("apw/widget")
 local mpd             = require ("cuddly-succotash.widgets.wibox.mpd")
 local menubar         = require ("menubar")
-local pulseaudio      = require ("widget.pulseaudio")
+-- local pulseaudio      = require ("widget.pulseaudio")
+local pulseaudio      = require ("cuddly-succotash.widgets.wibox.pulseaudio")
 local util            = require ("config.util")
 -- local screenshot      = require ("widget.screenshot")
 local screenshot     = require ("cuddly-succotash.widgets.wibox.screenshot")
@@ -260,18 +261,20 @@ keys.globalkeys = awful.util.table.join(
     -- {{{ PulseAudio
     ----------------------------------------------------------------------------
     awful.key({ }, "XF86AudioRaiseVolume",  function ()
-            APW.Up ()
+        local pulse = pulseaudio.instance ()
+        if pulse then pulse.increase (5) end
+            -- APW.Up ()
             -- if pulseaudio.update then pulseaudio.update () end
             end,
         {description = "Increase volume", group = "peripherals"}),   -- Volume UP
     awful.key({ }, "XF86AudioLowerVolume",  function ()
-            APW.Down ()
-            -- if pulseaudio.update then pulseaudio.update () end
+            local pulse = pulseaudio.instance ()
+            if pulse then pulse.decrease (5) end
             end,
         {description = "Decrease volume", group = "peripherals"}), -- Volume DOWN
     awful.key({ }, "XF86AudioMute",         function ()
-            APW.ToggleMute ()
-            -- if pulseaudio.update then pulseaudio.update () end
+        local pulse = pulseaudio.instance ()
+        if pulse then pulse.toggle_mute () end
             end,
         {description = "Mute", group = "peripherals"}), -- Mute
     ----------------------------------------------------------------------------
@@ -382,14 +385,14 @@ keys.globalkeys = awful.util.table.join(
                            end,
         {description = "Take screenshot", group = "util"}),
     -- Super + imprime écran -> Screenshot sur selection/client
-    -- awful.key({ modkey }, "#107", function ()
-    --         -- awful.util.spawn_with_shell("sleep 0.1 && screenshot -s")
-    --         -- local filename = util.simple_exec ("sleep 0.1 && /home/brignone/bin/screenshot -s")
-    --     -- if screenshot.show_warning then screenshot.show_warning (filename) end
-    --     local scr = screenshot.instance ()
-    --     if scr then scr.shot_s () end
-    --                               end,
-    --   {description = "Take screenshot by selecting region/client", group = "util"}),
+    awful.key({ modkey }, "#107", function ()
+            -- awful.util.spawn_with_shell("sleep 0.1 && screenshot -s")
+            -- local filename = util.simple_exec ("sleep 0.1 && /home/brignone/bin/screenshot -s")
+        -- if screenshot.show_warning then screenshot.show_warning (filename) end
+        local scr = screenshot.instance ()
+        if scr then scr.shot_s () end
+                                  end,
+      {description = "Take screenshot by selecting region/client", group = "util"}),
     ----------------------------------------------------------------------------
     -- }}}
 

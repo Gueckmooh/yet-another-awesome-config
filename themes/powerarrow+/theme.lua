@@ -554,8 +554,10 @@ theme.widgets.battery_widget = battery.factory ({}, theme).widget
 
 -------------------- {{{ Pulse Audio }}} ---------------------------------------
 
-local pulse = require ("widget.pulseaudio")
-theme.widgets.pulse_widget = pulse.get_widget (theme)
+local pulse = require ("cuddly-succotash.widgets.wibox.pulseaudio")
+theme.widgets.pulse_widget = pulse.factory ({}, theme).widget
+-- local pulse = require ("widget.pulseaudio")
+-- theme.widgets.pulse_widget = pulse.get_widget (theme)
 
 -------------------- {{{ End Pulse Audio }}} -----------------------------------
 
