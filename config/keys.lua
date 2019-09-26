@@ -16,7 +16,8 @@ local mpd             = require ("cuddly-succotash.widgets.wibox.mpd")
 local menubar         = require ("menubar")
 local pulseaudio      = require ("widget.pulseaudio")
 local util            = require ("config.util")
-local screenshot      = require ("widget.screenshot")
+-- local screenshot      = require ("widget.screenshot")
+local screenshot     = require ("cuddly-succotash.widgets.wibox.screenshot")
 local translate       = require ("widget.translate")
 local naughty = require "naughty"
 
@@ -374,17 +375,21 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- imprime écran -> Screenshot
     awful.key({ }, "#107", function ()
-            local filename = util.simple_exec ("screenshot")
-            if screenshot.show_warning then screenshot.show_warning (filename) end
+            -- local filename = util.simple_exec ("/home/brignone/bin/screenshot")
+            -- if screenshot.show_warning then screenshot.show_warning (filename) end
+        local scr = screenshot.instance ()
+        if scr then scr.shot () end
                            end,
         {description = "Take screenshot", group = "util"}),
     -- Super + imprime écran -> Screenshot sur selection/client
-    awful.key({ modkey }, "#107", function ()
-            -- awful.util.spawn_with_shell("sleep 0.1 && screenshot -s")
-            local filename = util.simple_exec ("sleep 0.1 && screenshot -s")
-            if screenshot.show_warning then screenshot.show_warning (filename) end
-                                  end,
-      {description = "Take screenshot by selecting region/client", group = "util"}),
+    -- awful.key({ modkey }, "#107", function ()
+    --         -- awful.util.spawn_with_shell("sleep 0.1 && screenshot -s")
+    --         -- local filename = util.simple_exec ("sleep 0.1 && /home/brignone/bin/screenshot -s")
+    --     -- if screenshot.show_warning then screenshot.show_warning (filename) end
+    --     local scr = screenshot.instance ()
+    --     if scr then scr.shot_s () end
+    --                               end,
+    --   {description = "Take screenshot by selecting region/client", group = "util"}),
     ----------------------------------------------------------------------------
     -- }}}
 

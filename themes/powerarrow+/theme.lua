@@ -567,6 +567,9 @@ theme.widgets.temp_widget = temp.get_widget (theme)
 
 -------------------- {{{ End Heat }}} ------------------------------------------
 
+local screenshot = require ("cuddly-succotash.widgets.wibox.screenshot")
+theme.widgets.screenshot = screenshot.factory ({}, theme)
+
 -------------------- {{{ CPU }}} -----------------------------------------------
 
 local cpu = require ("cuddly-succotash.widgets.wibox.cpu")
