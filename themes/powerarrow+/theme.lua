@@ -590,8 +590,10 @@ theme.widgets.mem_widget = mem.factory ({}, theme).widget
 
 -------------------- {{{ FS }}} ------------------------------------------------
 
-local fs = require ("widget.fs")
-theme.widgets.fs_widget = fs.get_widget (theme)
+-- local fs = require ("widget.fs")
+-- theme.widgets.fs_widget = fs.get_widget (theme)
+local fs = require ("cuddly-succotash.widgets.wibox.fs")
+theme.widgets.fs_widget = fs.factory ({}, theme).widget
 
 -------------------- {{{ End FS }}} --------------------------------------------
 
