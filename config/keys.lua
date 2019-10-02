@@ -291,10 +291,14 @@ keys.globalkeys = awful.util.table.join(
     -- {{{ Control the backlight
     ----------------------------------------------------------------------------
     -- Decrease backlight
-    awful.key({ }, "XF86KbdBrightnessDown", function () os.execute ([[bash -c "backlight - 7"]]) end,
+    awful.key({ }, "XF86MonBrightnessDown", function ()
+        awful.spawn.with_shell ("/home/brignone/bin/backlight - 7")
+                                            end,
         {description = "Decrease the screen backlight", group = "peripherals"}),
     --Increase backlight
-    awful.key({ }, "XF86KbdBrightnessUp", function () os.execute ([[bash -c "backlight + 7"]]) end,
+    awful.key({ }, "XF86MonBrightnessUp", function ()
+        awful.spawn.with_shell ("/home/brignone/bin/backlight + 7")
+                                          end,
         {description = "Increase the screen backlight", group = "peripherals"}),
     ----------------------------------------------------------------------------
     -- }}}
@@ -460,17 +464,13 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- awful.key({ modkey, shiftkey  }, "o", function () root.keys (keys.launcher_mode) end,
     --     {description = "rename the current tag", group = "tag"})
-
     ----------------------------------------------------------------------------
-    -- Super + c -> Open caja
-    awful.key ({modkey, shiftkey}, "y",
-        function ()
-            -- os.execute ("/home/brignone/bin/repair-screen")
-            os.execute ("xrandr")
-        end,
-    {description = "Repair screen", group = "util"})
+    -- Super + Ctrl + m -> mutt
+    awful.key({ modkey, ctrlkey }, "m",
+      function ()
+        awful.spawn.with_shell(vars.terminal .. " -t Mailer -e neomutt")
+      end, {description = "Open neomutt", group = "Launcher"})
     ----------------------------------------------------------------------------
-
 
 )
 
