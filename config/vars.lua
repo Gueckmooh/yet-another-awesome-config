@@ -9,7 +9,7 @@
 local vars          = {}
 
 
-vars.terminal       = "gnome-terminal"
+vars.terminal       = "termite"
 vars.editor         = os.getenv ("EDITOR") or "emacsclient -t"
 vars.editor_cmd     = vars.terminal .. " -e " .. vars.editor
 -- vars.checkupdate    = "apt list --upgradable 2> /dev/null | awk -v FS=/ 'NR>1 {print $1}'"
