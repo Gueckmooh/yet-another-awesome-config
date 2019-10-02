@@ -505,7 +505,8 @@ theme.arrows.color = {}
 theme.arrows.color[1] = "#777E76"
 theme.arrows.color[2] = "#8DAA9A"
 theme.arrows.color[3] = "#b23998"
-theme.arrows.color[4] = "#CB755B"
+-- theme.arrows.color[4] = "#CB755B"
+theme.arrows.color[4] = "#355070"
 theme.arrows.color[5] = "#4B3B51"
 theme.arrows.color[6] = "#4B696D"
 theme.arrows.color[7] = "#777E76"
@@ -604,6 +605,9 @@ theme.widgets.pack_widget = pacman.factory ({}, theme).widget
 
 -------------------- {{{ End PACK }}} ------------------------------------------
 
+local notmuch = require ("cuddly-succotash.widgets.wibox.notmuch")
+theme.widgets.mail_widget = notmuch.factory ({lmax = 50}, theme).widget
+
 -------------------- {{{ MPD }}} ----------------------------------------------
 
 local mpd = require ("cuddly-succotash.widgets.wibox.mpd")
@@ -698,42 +702,42 @@ theme.at_screen_connect = function (s)
             --------------------------------------------------------------------
             arrow(theme.arrows.color[10], theme.arrows.color[9]),
             wibox.container.background(
-                wibox.container.margin (theme.widgets.mpd_widget, 8, 3),
+                wibox.container.margin (theme.widgets.mpd_widget, 11, 3),
                 theme.arrows.color[9]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
             arrow(theme.arrows.color[9], theme.arrows.color[8]),
             wibox.container.background(
-                wibox.container.margin (theme.widgets.pack_widget, 8, 3),
+                wibox.container.margin (theme.widgets.pack_widget, 11, 3),
                 theme.arrows.color[8]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
             arrow(theme.arrows.color[8], theme.arrows.color[7]),
             wibox.container.background(
-                wibox.container.margin (theme.widgets.fs_widget, 3, 3),
+                wibox.container.margin (theme.widgets.mail_widget, 11, 3),
                 theme.arrows.color[7]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
             arrow(theme.arrows.color[7], theme.arrows.color[6]),
             wibox.container.background(
-                wibox.container.margin (theme.widgets.mem_widget, 3, 3),
+                wibox.container.margin (theme.widgets.fs_widget, 3, 3),
                 theme.arrows.color[6]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
             arrow(theme.arrows.color[6], theme.arrows.color[5]),
             wibox.container.background(
-                wibox.container.margin (theme.widgets.cpu_widget, 3, 3),
+                wibox.container.margin (theme.widgets.mem_widget, 3, 3),
                 theme.arrows.color[5]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
             arrow(theme.arrows.color[5], theme.arrows.color[4]),
             wibox.container.background(
-                wibox.container.margin (theme.widgets.temp_widget, 3, 3),
+                wibox.container.margin (theme.widgets.cpu_widget, 3, 3),
                 theme.arrows.color[4]),
             --------------------------------------------------------------------
 
