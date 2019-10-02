@@ -351,7 +351,7 @@ theme.titlebar_floating_button_normal_active         = theme.dir .. "/icons/titl
 -- theme.titlebar_floating_button_normal_active_hover   = nil
 -- theme.titlebar_floating_button_normal_active_press   = nil
 
-theme.titlebar_floating_button_normal_inactive       = theme.dir .. "icons/titlebar/floating_normal_inactive.png"
+theme.titlebar_floating_button_normal_inactive       = theme.dir .. "/icons/titlebar/floating_normal_inactive.png"
 -- theme.titlebar_floating_button_normal_inactive_hover = nil
 -- theme.titlebar_floating_button_normal_inactive_press = nil
 
