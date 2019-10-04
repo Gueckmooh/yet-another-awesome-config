@@ -352,7 +352,7 @@ keys.globalkeys = awful.util.table.join(
     -- Super + Control + f -> launch browser
     awful.key({ modkey, ctrlkey }, "f", function ()
             awful.spawn.with_shell(vars.browser)
-    end, {description = "Open browser", group = "Launcher"}),
+    end, {description = "Open browser", group = "launcher"}),
     ----------------------------------------------------------------------------
     -- }}}
 
@@ -469,7 +469,7 @@ keys.globalkeys = awful.util.table.join(
     awful.key({ modkey, ctrlkey }, "m",
       function ()
         awful.spawn.with_shell(vars.terminal .. " -t Mailer -e neomutt")
-      end, {description = "Open neomutt", group = "Launcher"})
+      end, {description = "Open neomutt", group = "launcher"})
     ----------------------------------------------------------------------------
 
 )
