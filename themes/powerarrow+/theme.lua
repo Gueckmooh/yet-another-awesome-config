@@ -541,21 +541,21 @@ theme.widgets = {}
 
 -------------------- {{{ Clock }}} ---------------------------------------------
 
-local clock = require ("cuddly-succotash.widgets.wibox.clock")
+local clock = require ("cuddly.widgets.wibox.clock")
 theme.widgets.clock_widget = clock.factory ({}, theme).widget
 
 -------------------- {{{ End Clock }}} -----------------------------------------
 
 -------------------- {{{ Battery }}} -------------------------------------------
 
-local battery = require ("cuddly-succotash.widgets.wibox.battery")
+local battery = require ("cuddly.widgets.wibox.battery")
 theme.widgets.battery_widget = battery.factory ({}, theme).widget
 
 -------------------- {{{ End Battery }}} ---------------------------------------
 
 -------------------- {{{ Pulse Audio }}} ---------------------------------------
 
-local pulse = require ("cuddly-succotash.widgets.wibox.pulseaudio")
+local pulse = require ("cuddly.widgets.wibox.pulseaudio")
 theme.widgets.pulse_widget = pulse.factory ({}, theme).widget
 -- local pulse = require ("widget.pulseaudio")
 -- theme.widgets.pulse_widget = pulse.get_widget (theme)
@@ -570,19 +570,19 @@ theme.widgets.temp_widget = temp.get_widget (theme)
 
 -------------------- {{{ End Heat }}} ------------------------------------------
 
-local screenshot = require ("cuddly-succotash.widgets.wibox.screenshot")
+local screenshot = require ("cuddly.widgets.wibox.screenshot")
 theme.widgets.screenshot = screenshot.factory ({}, theme)
 
 -------------------- {{{ CPU }}} -----------------------------------------------
 
-local cpu = require ("cuddly-succotash.widgets.wibox.cpu")
+local cpu = require ("cuddly.widgets.wibox.cpu")
 theme.widgets.cpu_widget = cpu.factory ({}, theme).widget
 
 -------------------- {{{ End CPU }}} -------------------------------------------
 
 -------------------- {{{ MEM }}} -----------------------------------------------
 
-local mem = require ("cuddly-succotash.widgets.wibox.mem")
+local mem = require ("cuddly.widgets.wibox.mem")
 theme.widgets.mem_widget = mem.factory ({}, theme).widget
 -- local mem = require ("widget.mem")
 -- theme.widgets.mem_widget = mem.get_widget (theme)
@@ -593,24 +593,24 @@ theme.widgets.mem_widget = mem.factory ({}, theme).widget
 
 -- local fs = require ("widget.fs")
 -- theme.widgets.fs_widget = fs.get_widget (theme)
-local fs = require ("cuddly-succotash.widgets.wibox.fs")
+local fs = require ("cuddly.widgets.wibox.fs")
 theme.widgets.fs_widget = fs.factory ({}, theme).widget
 
 -------------------- {{{ End FS }}} --------------------------------------------
 
 -------------------- {{{ PACK }}} ----------------------------------------------
 
-local pacman = require ("cuddly-succotash.widgets.wibox.pacman")
+local pacman = require ("cuddly.widgets.wibox.pacman")
 theme.widgets.pack_widget = pacman.factory ({}, theme).widget
 
 -------------------- {{{ End PACK }}} ------------------------------------------
 
-local notmuch = require ("cuddly-succotash.widgets.wibox.notmuch")
+local notmuch = require ("cuddly.widgets.wibox.notmuch")
 theme.widgets.mail_widget = notmuch.factory ({lmax = 50}, theme).widget
 
 -------------------- {{{ MPD }}} ----------------------------------------------
 
-local mpd = require ("cuddly-succotash.widgets.wibox.mpd")
+local mpd = require ("cuddly.widgets.wibox.mpd")
 theme.widgets.mpd_widget = mpd.factory (
   {
     music_dir = os.getenv("HOME") .. "/Musique",
