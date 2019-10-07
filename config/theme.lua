@@ -22,18 +22,15 @@ local awesome   = awesome
 -- naughty.config.defaults['icon_size'] = 50
 
 theme.list_themes = {
-    "default",
-    "powerarrow",
     "powerarrow+",
-    "kawai-desu-ne",
-    "zelda-pastel"
+    "new-theme"
 }
 
-theme.name = theme.list_themes[3]
+theme.name = theme.list_themes[1]
 
 -- theme.name      = "powerarrow"
 -- theme.name      = "default"
-theme.directory     = os.getenv ("HOME") .. "/.config/awesome/themes"
+theme.directory     = os.getenv ("HOME") .. "/.config/awesome/ubiquitous"
 -- theme.directory     = os.getenv ("HOME") .. "/git/yet-another-awesome-config/themes" -- CONFIG
 theme.path          = string.format ("%s/%s/theme.lua", theme.directory, theme.name)
 
