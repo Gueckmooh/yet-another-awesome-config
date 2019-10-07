@@ -8,7 +8,7 @@
 
 local config = {
     keys    = require ("config.keys"),
-    layout  = require ("config.layout"),
+    -- layout  = require ("config.layout"),
     menu    = require ("config.menu"),
     vars    = require ("config.vars"),
     autorun = require ("config.autorun"),
