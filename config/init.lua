@@ -14,6 +14,7 @@ local config = {
     autorun = require ("config.autorun"),
     theme   = require ("config.theme"),
     startup = require ("config.startup"),
+    quake   = require "config.quake"
 }
 
 for _, mod in pairs (config)

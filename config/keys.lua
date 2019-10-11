@@ -24,6 +24,7 @@ local naughty = require "naughty"
 
 local client          = client
 local root            = root
+local quake = require "cuddly.util.quake"
 
 local keys = {}
 
@@ -445,8 +446,12 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- Super + z -> Show dropdown terminak
     awful.key({ modkey, }, "z", function ()
-            if awful.screen.focused ().quake ~= nil then
-            awful.screen.focused ().quake:toggle() end end,
+        -- if awful.screen.focused ().quake ~= nil then
+        --   awful.screen.focused ().quake:toggle() end
+        if quake.instance () then
+          quake.instance():toggle()
+        end
+                                end,
         {description = "show dropdown terminal", group = "util"}),
     ----------------------------------------------------------------------------
 
