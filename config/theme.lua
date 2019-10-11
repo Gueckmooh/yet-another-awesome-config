@@ -101,9 +101,9 @@ awful.rules.rules = {
       }, properties = { titlebars_enabled = true, size_hints_honor = false }
     },
 
-    { rule_any = {name = { "QuakeDD" }
-      }, properties = { titlebars_enabled = false }
-    },
+    -- { rule_any = {name = { "QuakeDD" }
+    --   }, properties = { titlebars_enabled = false }
+    -- },
 
     { rule_any = {class = { "URxvt", "Emacs" }
                  }, properties = { size_hints_honor = false }
