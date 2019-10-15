@@ -15,7 +15,9 @@
 -- quake.quake = lain.util.quake({ app = vars.terminal })
 
 local quake = require "cuddly.util.quake"
-local qq = quake ({sticky = true, border=0})
+local qq = quake ({sticky = true, border=0,
+                   extra = "-c ".. os.getenv("HOME")
+                     .."/.config/termite/config_quake"})
 
 return qq
 -- return quake
