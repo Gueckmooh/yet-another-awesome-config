@@ -293,12 +293,12 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- Decrease backlight
     awful.key({ }, "XF86MonBrightnessDown", function ()
-        awful.spawn.with_shell ("/home/brignone/bin/backlight - 7")
+        awful.spawn.with_shell ("/usr/bin/backlight - 7")
                                             end,
         {description = "Decrease the screen backlight", group = "peripherals"}),
     --Increase backlight
     awful.key({ }, "XF86MonBrightnessUp", function ()
-        awful.spawn.with_shell ("/home/brignone/bin/backlight + 7")
+        awful.spawn.with_shell ("/usr/bin/backlight + 7")
                                           end,
         {description = "Increase the screen backlight", group = "peripherals"}),
     ----------------------------------------------------------------------------
