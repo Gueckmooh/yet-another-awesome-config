@@ -78,7 +78,7 @@ end
 
 function util.add_tag()
     awful.tag.add("0",{screen= awful.screen.focused(),
-                       layout = layout.default_layout}):view_only()
+                       layout = awful.util.default_layout}):view_only()
 end
 
 function util.rename_tag()
