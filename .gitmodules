@@ -1,6 +1,6 @@
 [submodule "cuddly"]
 	path = cuddly
-	url = https://github.com/gueckmooh/cuddly-succotash
+	url = git@github.com:Gueckmooh/cuddly-succotash.git
 [submodule "ubiquitous"]
 	path = ubiquitous
-	url = https://github.com/gueckmooh/ubiquitous-umbrella
+	url = git@github.com:Gueckmooh/ubiquitous-umbrella.git
