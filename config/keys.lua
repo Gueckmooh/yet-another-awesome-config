@@ -12,16 +12,19 @@ local menu            = require ("config.menu")
 local layout          = require ("config.layout")
 local vars            = require ("config.vars")
 local APW             = require("apw/widget")
-local mpd             = require ("cuddly-succotash.widgets.wibox.mpd")
+local mpd             = require ("cuddly.widgets.wibox.mpd")
 local menubar         = require ("menubar")
-local pulseaudio      = require ("widget.pulseaudio")
+-- local pulseaudio      = require ("widget.pulseaudio")
+local pulseaudio      = require ("cuddly.widgets.wibox.pulseaudio")
 local util            = require ("config.util")
-local screenshot      = require ("widget.screenshot")
+-- local screenshot      = require ("widget.screenshot")
+local screenshot     = require ("cuddly.widgets.wibox.screenshot")
 local translate       = require ("widget.translate")
 local naughty = require "naughty"
 
 local client          = client
 local root            = root
+local quake = require "cuddly.util.quake"
 
 local keys = {}
 
@@ -259,18 +262,20 @@ keys.globalkeys = awful.util.table.join(
     -- {{{ PulseAudio
     ----------------------------------------------------------------------------
     awful.key({ }, "XF86AudioRaiseVolume",  function ()
-            APW.Up ()
+        local pulse = pulseaudio.instance ()
+        if pulse then pulse.increase (5) end
+            -- APW.Up ()
             -- if pulseaudio.update then pulseaudio.update () end
             end,
         {description = "Increase volume", group = "peripherals"}),   -- Volume UP
     awful.key({ }, "XF86AudioLowerVolume",  function ()
-            APW.Down ()
-            -- if pulseaudio.update then pulseaudio.update () end
+            local pulse = pulseaudio.instance ()
+            if pulse then pulse.decrease (5) end
             end,
         {description = "Decrease volume", group = "peripherals"}), -- Volume DOWN
     awful.key({ }, "XF86AudioMute",         function ()
-            APW.ToggleMute ()
-            -- if pulseaudio.update then pulseaudio.update () end
+        local pulse = pulseaudio.instance ()
+        if pulse then pulse.toggle_mute () end
             end,
         {description = "Mute", group = "peripherals"}), -- Mute
     ----------------------------------------------------------------------------
@@ -287,10 +292,14 @@ keys.globalkeys = awful.util.table.join(
     -- {{{ Control the backlight
     ----------------------------------------------------------------------------
     -- Decrease backlight
-    awful.key({ }, "XF86KbdBrightnessDown", function () os.execute ([[bash -c "backlight - 7"]]) end,
+    awful.key({ }, "XF86MonBrightnessDown", function ()
+        awful.spawn.with_shell ("/usr/bin/backlight - 7")
+                                            end,
         {description = "Decrease the screen backlight", group = "peripherals"}),
     --Increase backlight
-    awful.key({ }, "XF86KbdBrightnessUp", function () os.execute ([[bash -c "backlight + 7"]]) end,
+    awful.key({ }, "XF86MonBrightnessUp", function ()
+        awful.spawn.with_shell ("/usr/bin/backlight + 7")
+                                          end,
         {description = "Increase the screen backlight", group = "peripherals"}),
     ----------------------------------------------------------------------------
     -- }}}
@@ -344,7 +353,7 @@ keys.globalkeys = awful.util.table.join(
     -- Super + Control + f -> launch browser
     awful.key({ modkey, ctrlkey }, "f", function ()
             awful.spawn.with_shell(vars.browser)
-    end, {description = "Open browser", group = "Launcher"}),
+    end, {description = "Open browser", group = "launcher"}),
     ----------------------------------------------------------------------------
     -- }}}
 
@@ -374,15 +383,19 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- imprime écran -> Screenshot
     awful.key({ }, "#107", function ()
-            local filename = util.simple_exec ("screenshot")
-            if screenshot.show_warning then screenshot.show_warning (filename) end
+            -- local filename = util.simple_exec ("/home/brignone/bin/screenshot")
+            -- if screenshot.show_warning then screenshot.show_warning (filename) end
+        local scr = screenshot.instance ()
+        if scr then scr.shot () end
                            end,
         {description = "Take screenshot", group = "util"}),
     -- Super + imprime écran -> Screenshot sur selection/client
     awful.key({ modkey }, "#107", function ()
             -- awful.util.spawn_with_shell("sleep 0.1 && screenshot -s")
-            local filename = util.simple_exec ("sleep 0.1 && screenshot -s")
-            if screenshot.show_warning then screenshot.show_warning (filename) end
+            -- local filename = util.simple_exec ("sleep 0.1 && /home/brignone/bin/screenshot -s")
+        -- if screenshot.show_warning then screenshot.show_warning (filename) end
+        local scr = screenshot.instance ()
+        if scr then scr.shot_s () end
                                   end,
       {description = "Take screenshot by selecting region/client", group = "util"}),
     ----------------------------------------------------------------------------
@@ -433,8 +446,12 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- Super + z -> Show dropdown terminak
     awful.key({ modkey, }, "z", function ()
-            if awful.screen.focused ().quake ~= nil then
-            awful.screen.focused ().quake:toggle() end end,
+        -- if awful.screen.focused ().quake ~= nil then
+        --   awful.screen.focused ().quake:toggle() end
+        if quake.instance () then
+          quake.instance():toggle()
+        end
+                                end,
         {description = "show dropdown terminal", group = "util"}),
     ----------------------------------------------------------------------------
 
@@ -452,17 +469,13 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- awful.key({ modkey, shiftkey  }, "o", function () root.keys (keys.launcher_mode) end,
     --     {description = "rename the current tag", group = "tag"})
-
     ----------------------------------------------------------------------------
-    -- Super + c -> Open caja
-    awful.key ({modkey, shiftkey}, "y",
-        function ()
-            -- os.execute ("/home/brignone/bin/repair-screen")
-            os.execute ("xrandr")
-        end,
-    {description = "Repair screen", group = "util"})
+    -- Super + Ctrl + m -> mutt
+    awful.key({ modkey, ctrlkey }, "m",
+      function ()
+        awful.spawn.with_shell(vars.terminal .. " -t Mailer -e neomutt")
+      end, {description = "Open neomutt", group = "launcher"})
     ----------------------------------------------------------------------------
-
 
 )
 

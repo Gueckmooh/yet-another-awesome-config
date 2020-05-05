@@ -46,7 +46,7 @@ theme.bg_systray  = "#343434"
 theme.fg_normal   = "#FEFEFE"
 theme.fg_focus    = "#32D6FF"
 theme.fg_urgent   = "#C83F11"
--- theme.fg_minimize = nil
+theme.fg_minimize = "#888888"
 
 -- border\
 -- theme.border_marked = nil
@@ -351,7 +351,7 @@ theme.titlebar_floating_button_normal_active         = theme.dir .. "/icons/titl
 -- theme.titlebar_floating_button_normal_active_hover   = nil
 -- theme.titlebar_floating_button_normal_active_press   = nil
 
-theme.titlebar_floating_button_normal_inactive       = theme.dir .. "icons/titlebar/floating_normal_inactive.png"
+theme.titlebar_floating_button_normal_inactive       = theme.dir .. "/icons/titlebar/floating_normal_inactive.png"
 -- theme.titlebar_floating_button_normal_inactive_hover = nil
 -- theme.titlebar_floating_button_normal_inactive_press = nil
 
@@ -505,7 +505,8 @@ theme.arrows.color = {}
 theme.arrows.color[1] = "#777E76"
 theme.arrows.color[2] = "#8DAA9A"
 theme.arrows.color[3] = "#b23998"
-theme.arrows.color[4] = "#CB755B"
+-- theme.arrows.color[4] = "#CB755B"
+theme.arrows.color[4] = "#355070"
 theme.arrows.color[5] = "#4B3B51"
 theme.arrows.color[6] = "#4B696D"
 theme.arrows.color[7] = "#777E76"
@@ -540,23 +541,24 @@ theme.widgets = {}
 
 -------------------- {{{ Clock }}} ---------------------------------------------
 
-local clock = require ("cuddly-succotash.widgets.wibox.clock")
+local clock = require ("cuddly.widgets.wibox.clock")
 theme.widgets.clock_widget = clock.factory ({}, theme).widget
-print (theme.widgets.clock_widget)
 
 -------------------- {{{ End Clock }}} -----------------------------------------
 
 -------------------- {{{ Battery }}} -------------------------------------------
 
-local battery = require ("widget.battery")
-theme.widgets.battery_widget = battery.get_widget (theme)
+local battery = require ("cuddly.widgets.wibox.battery")
+theme.widgets.battery_widget = battery.factory ({}, theme).widget
 
 -------------------- {{{ End Battery }}} ---------------------------------------
 
 -------------------- {{{ Pulse Audio }}} ---------------------------------------
 
-local pulse = require ("widget.pulseaudio")
-theme.widgets.pulse_widget = pulse.get_widget (theme)
+local pulse = require ("cuddly.widgets.wibox.pulseaudio")
+theme.widgets.pulse_widget = pulse.factory ({}, theme).widget
+-- local pulse = require ("widget.pulseaudio")
+-- theme.widgets.pulse_widget = pulse.get_widget (theme)
 
 -------------------- {{{ End Pulse Audio }}} -----------------------------------
 
@@ -568,37 +570,47 @@ theme.widgets.temp_widget = temp.get_widget (theme)
 
 -------------------- {{{ End Heat }}} ------------------------------------------
 
+local screenshot = require ("cuddly.widgets.wibox.screenshot")
+theme.widgets.screenshot = screenshot.factory ({}, theme)
+
 -------------------- {{{ CPU }}} -----------------------------------------------
 
-local cpu = require ("widget.cpu")
-theme.widgets.cpu_widget = cpu.get_widget (theme)
+local cpu = require ("cuddly.widgets.wibox.cpu")
+theme.widgets.cpu_widget = cpu.factory ({}, theme).widget
 
 -------------------- {{{ End CPU }}} -------------------------------------------
 
 -------------------- {{{ MEM }}} -----------------------------------------------
 
-local mem = require ("widget.mem")
-theme.widgets.mem_widget = mem.get_widget (theme)
+local mem = require ("cuddly.widgets.wibox.mem")
+theme.widgets.mem_widget = mem.factory ({}, theme).widget
+-- local mem = require ("widget.mem")
+-- theme.widgets.mem_widget = mem.get_widget (theme)
 
 -------------------- {{{ End MEM }}} -------------------------------------------
 
 -------------------- {{{ FS }}} ------------------------------------------------
 
-local fs = require ("widget.fs")
-theme.widgets.fs_widget = fs.get_widget (theme)
+-- local fs = require ("widget.fs")
+-- theme.widgets.fs_widget = fs.get_widget (theme)
+local fs = require ("cuddly.widgets.wibox.fs")
+theme.widgets.fs_widget = fs.factory ({}, theme).widget
 
 -------------------- {{{ End FS }}} --------------------------------------------
 
 -------------------- {{{ PACK }}} ----------------------------------------------
 
-local pack = require ("widget.pack")
-theme.widgets.pack_widget = pack.get_widget (theme)
+local pacman = require ("cuddly.widgets.wibox.pacman")
+theme.widgets.pack_widget = pacman.factory ({}, theme).widget
 
 -------------------- {{{ End PACK }}} ------------------------------------------
 
+local notmuch = require ("cuddly.widgets.wibox.notmuch")
+theme.widgets.mail_widget = notmuch.factory ({lmax = 50}, theme).widget
+
 -------------------- {{{ MPD }}} ----------------------------------------------
 
-local mpd = require ("cuddly-succotash.widgets.wibox.mpd")
+local mpd = require ("cuddly.widgets.wibox.mpd")
 theme.widgets.mpd_widget = mpd.factory (
   {
     music_dir = os.getenv("HOME") .. "/Musique",
@@ -690,42 +702,42 @@ theme.at_screen_connect = function (s)
             --------------------------------------------------------------------
             arrow(theme.arrows.color[10], theme.arrows.color[9]),
             wibox.container.background(
-                wibox.container.margin (theme.widgets.mpd_widget, 8, 3),
+                wibox.container.margin (theme.widgets.mpd_widget, 11, 3),
                 theme.arrows.color[9]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
             arrow(theme.arrows.color[9], theme.arrows.color[8]),
             wibox.container.background(
-                wibox.container.margin (theme.widgets.pack_widget, 8, 3),
+                wibox.container.margin (theme.widgets.pack_widget, 11, 3),
                 theme.arrows.color[8]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
             arrow(theme.arrows.color[8], theme.arrows.color[7]),
             wibox.container.background(
-                wibox.container.margin (theme.widgets.fs_widget, 3, 3),
+                wibox.container.margin (theme.widgets.mail_widget, 11, 3),
                 theme.arrows.color[7]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
             arrow(theme.arrows.color[7], theme.arrows.color[6]),
             wibox.container.background(
-                wibox.container.margin (theme.widgets.mem_widget, 3, 3),
+                wibox.container.margin (theme.widgets.fs_widget, 3, 3),
                 theme.arrows.color[6]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
             arrow(theme.arrows.color[6], theme.arrows.color[5]),
             wibox.container.background(
-                wibox.container.margin (theme.widgets.cpu_widget, 3, 3),
+                wibox.container.margin (theme.widgets.mem_widget, 3, 3),
                 theme.arrows.color[5]),
             --------------------------------------------------------------------
 
             --------------------------------------------------------------------
             arrow(theme.arrows.color[5], theme.arrows.color[4]),
             wibox.container.background(
-                wibox.container.margin (theme.widgets.temp_widget, 3, 3),
+                wibox.container.margin (theme.widgets.cpu_widget, 3, 3),
                 theme.arrows.color[4]),
             --------------------------------------------------------------------
 
