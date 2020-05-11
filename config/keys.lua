@@ -331,6 +331,13 @@ keys.globalkeys = awful.util.table.join(
         if mpd.update then mpd.update () end
       end,
       {description = "Stop Music", group = "Music"}),
+    awful.key({ }, "XF86AudioPause",
+      function ()
+        local mpd = mpd.get_instance ()
+        awful.spawn.with_shell("mpc -p " .. mpd.port .. " pause")
+        if mpd.update then mpd.update () end
+      end,
+      {description = "Stop Music", group = "Music"}),
     awful.key({ modkey }, "Up",
       function ()
         local mpd = mpd.get_instance ()
