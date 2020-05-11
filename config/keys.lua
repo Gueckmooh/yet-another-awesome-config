@@ -315,7 +315,23 @@ keys.globalkeys = awful.util.table.join(
         end
       end,
       {description = "Play/Pause music", group = "Music"}),
+    awful.key({ modkey }, "Down",
+      function ()
+        local mpd = mpd.get_instance ()
+        awful.spawn.with_shell("mpc -p " .. mpd.port .. " toggle")
+        if mpd then
+          mpd.update ()
+        end
+      end,
+      {description = "Play/Pause music", group = "Music"}),
     awful.key({ modkey }, "XF86AudioPlay",
+      function ()
+        local mpd = mpd.get_instance ()
+        awful.spawn.with_shell("mpc -p " .. mpd.port .. " stop")
+        if mpd.update then mpd.update () end
+      end,
+      {description = "Stop Music", group = "Music"}),
+    awful.key({ modkey }, "Up",
       function ()
         local mpd = mpd.get_instance ()
         awful.spawn.with_shell("mpc -p " .. mpd.port .. " stop")
@@ -328,7 +344,19 @@ keys.globalkeys = awful.util.table.join(
         awful.spawn.with_shell("mpc -p " .. mpd.port .. " prev")
         if mpd.update then mpd.update () end
       end, {description = "Play previous music", group = "Music"}),
+    awful.key({ modkey }, "Prior",
+      function ()
+        local mpd = mpd.get_instance ()
+        awful.spawn.with_shell("mpc -p " .. mpd.port .. " prev")
+        if mpd.update then mpd.update () end
+      end, {description = "Play previous music", group = "Music"}),
     awful.key({ }, "XF86AudioNext",
+      function ()
+        local mpd = mpd.get_instance ()
+        awful.spawn.with_shell("mpc -p " .. mpd.port .. " next")
+        if mpd.update then mpd.update () end
+      end, {description = "Play next music", group = "Music"}),
+    awful.key({ modkey }, "Next",
       function ()
         local mpd = mpd.get_instance ()
         awful.spawn.with_shell("mpc -p " .. mpd.port .. " next")
@@ -352,8 +380,8 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- Super + Control + f -> launch browser
     awful.key({ modkey, ctrlkey }, "f", function ()
-            awful.spawn.with_shell(vars.browser)
-    end, {description = "Open browser", group = "launcher"}),
+        awful.spawn.with_shell(vars.browser)
+                                        end, {description = "Open browser", group = "launcher"}),
     ----------------------------------------------------------------------------
     -- }}}
 
@@ -361,7 +389,7 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- Super + r -> launch browser
     awful.key({ modkey }, "r", function ()
-            awful.spawn.with_shell(vars.rofi .. "run\"")
+        awful.spawn.with_shell(vars.rofi .. "run\"")
     end),
     ----------------------------------------------------------------------------
     -- }}}
@@ -370,11 +398,11 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- Super + Escape -> Lock
     awful.key({ modkey }, "Escape", function ()
-            os.execute(vars.lock_command)
+        os.execute(vars.lock_command)
     end),
     -- Super + Shift + Escape -> Lock + suspend
     awful.key({ modkey, shiftkey }, "Escape", function ()
-            os.execute(vars.lock_command .. " -s")
+        os.execute(vars.lock_command .. " -s")
     end),
     ----------------------------------------------------------------------------
     -- }}}
@@ -383,99 +411,99 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- imprime écran -> Screenshot
     awful.key({ }, "#107", function ()
-            -- local filename = util.simple_exec ("/home/brignone/bin/screenshot")
-            -- if screenshot.show_warning then screenshot.show_warning (filename) end
+        -- local filename = util.simple_exec ("/home/brignone/bin/screenshot")
+        -- if screenshot.show_warning then screenshot.show_warning (filename) end
         local scr = screenshot.instance ()
         if scr then scr.shot () end
                            end,
-        {description = "Take screenshot", group = "util"}),
+      {description = "Take screenshot", group = "util"}),
     -- Super + imprime écran -> Screenshot sur selection/client
     awful.key({ modkey }, "#107", function ()
-            -- awful.util.spawn_with_shell("sleep 0.1 && screenshot -s")
-            -- local filename = util.simple_exec ("sleep 0.1 && /home/brignone/bin/screenshot -s")
+        -- awful.util.spawn_with_shell("sleep 0.1 && screenshot -s")
+        -- local filename = util.simple_exec ("sleep 0.1 && /home/brignone/bin/screenshot -s")
         -- if screenshot.show_warning then screenshot.show_warning (filename) end
         local scr = screenshot.instance ()
         if scr then scr.shot_s () end
                                   end,
       {description = "Take screenshot by selecting region/client", group = "util"}),
-    ----------------------------------------------------------------------------
-    -- }}}
+        ----------------------------------------------------------------------------
+        -- }}}
 
-    ----------------------------------------------------------------------------
-    -- Super + e -> Open emacs client
-    awful.key ({modkey}, "e",
-        function ()
+        ----------------------------------------------------------------------------
+        -- Super + e -> Open emacs client
+        awful.key ({modkey}, "e",
+          function ()
             awful.spawn.with_shell ("emacsclient -c -e '(create-scratch-buffer)' &")
-        end,
-    {description = "Launch emacs client", group = "launcher"}),
-    ----------------------------------------------------------------------------
+          end,
+          {description = "Launch emacs client", group = "launcher"}),
+        ----------------------------------------------------------------------------
 
-    ----------------------------------------------------------------------------
-    -- Super + c -> Open caja
-    awful.key ({modkey}, "c",
-        function ()
+        ----------------------------------------------------------------------------
+        -- Super + c -> Open caja
+        awful.key ({modkey}, "c",
+          function ()
             awful.spawn.with_shell ("caja &")
-        end,
-    {description = "Launch caja", group = "launcher"}),
-    ----------------------------------------------------------------------------
+          end,
+          {description = "Launch caja", group = "launcher"}),
+        ----------------------------------------------------------------------------
 
-    ----------------------------------------------------------------------------
-    -- Super + Ctrl + o -> Open org dir
-    awful.key ({modkey, ctrlkey}, "o",
-        function ()
+        ----------------------------------------------------------------------------
+        -- Super + Ctrl + o -> Open org dir
+        awful.key ({modkey, ctrlkey}, "o",
+          function ()
             awful.spawn.with_shell ("emacsclient -c " .. os.getenv ("HOME") ..
-                                        "/org &")
-        end,
-        {description = "Open org directory with emacs", group = "launcher"}),
-    ----------------------------------------------------------------------------
+                                      "/org &")
+          end,
+          {description = "Open org directory with emacs", group = "launcher"}),
+        ----------------------------------------------------------------------------
 
-    ----------------------------------------------------------------------------
-    -- Super + Shift + t -> translate
-    awful.key({ modkey, ctrlkey }, "t",
-        function ()
+        ----------------------------------------------------------------------------
+        -- Super + Shift + t -> translate
+        awful.key({ modkey, ctrlkey }, "t",
+          function ()
             awful.prompt.run {
-                prompt       = "Translate: ",
-                textbox      = awful.screen.focused().mypromptbox.widget,
-                exe_callback = translate.notify,
-                history_path = awful.util.get_cache_dir() .. "/history_translate"
+              prompt       = "Translate: ",
+              textbox      = awful.screen.focused().mypromptbox.widget,
+              exe_callback = translate.notify,
+              history_path = awful.util.get_cache_dir() .. "/history_translate"
             }
-        end,
-        {description = "Translate query", group = "util"}),
-    ----------------------------------------------------------------------------
+          end,
+          {description = "Translate query", group = "util"}),
+        ----------------------------------------------------------------------------
 
-    ----------------------------------------------------------------------------
-    -- Super + z -> Show dropdown terminak
-    awful.key({ modkey, }, "z", function ()
-        -- if awful.screen.focused ().quake ~= nil then
-        --   awful.screen.focused ().quake:toggle() end
-        if quake.instance () then
-          quake.instance():toggle()
-        end
-                                end,
-        {description = "show dropdown terminal", group = "util"}),
-    ----------------------------------------------------------------------------
+        ----------------------------------------------------------------------------
+        -- Super + z -> Show dropdown terminak
+        awful.key({ modkey, }, "z", function ()
+            -- if awful.screen.focused ().quake ~= nil then
+            --   awful.screen.focused ().quake:toggle() end
+            if quake.instance () then
+              quake.instance():toggle()
+            end
+                                    end,
+          {description = "show dropdown terminal", group = "util"}),
+        ----------------------------------------------------------------------------
 
-    ----------------------------------------------------------------------------
-    awful.key({ modkey,           }, "a", function () util.add_tag ()
+        ----------------------------------------------------------------------------
+        awful.key({ modkey,           }, "a", function () util.add_tag ()
             util.rename_tags () end,
-        {description = "add a tag", group = "tag"}),
-    ----------------------------------------------------------------------------
-    awful.key({ modkey, shiftkey  }, "a", function () util.delete_tag ()
+          {description = "add a tag", group = "tag"}),
+        ----------------------------------------------------------------------------
+        awful.key({ modkey, shiftkey  }, "a", function () util.delete_tag ()
             util.rename_tags () end,
-        {description = "delete the current tag", group = "tag"}),
-    ----------------------------------------------------------------------------
-    awful.key({ modkey, ctrlkey  }, "a", util.rename_tag,
-        {description = "rename the current tag", group = "tag"}),
-    ----------------------------------------------------------------------------
-    -- awful.key({ modkey, shiftkey  }, "o", function () root.keys (keys.launcher_mode) end,
-    --     {description = "rename the current tag", group = "tag"})
-    ----------------------------------------------------------------------------
-    -- Super + Ctrl + m -> mutt
-    awful.key({ modkey, ctrlkey }, "m",
-      function ()
-        awful.spawn.with_shell(vars.terminal .. " -t Mailer -e neomutt")
-      end, {description = "Open neomutt", group = "launcher"})
-    ----------------------------------------------------------------------------
+          {description = "delete the current tag", group = "tag"}),
+        ----------------------------------------------------------------------------
+        awful.key({ modkey, ctrlkey  }, "a", util.rename_tag,
+          {description = "rename the current tag", group = "tag"}),
+        ----------------------------------------------------------------------------
+        -- awful.key({ modkey, shiftkey  }, "o", function () root.keys (keys.launcher_mode) end,
+        --     {description = "rename the current tag", group = "tag"})
+        ----------------------------------------------------------------------------
+        -- Super + Ctrl + m -> mutt
+        awful.key({ modkey, ctrlkey }, "m",
+          function ()
+            awful.spawn.with_shell(vars.terminal .. " -t Mailer -e neomutt")
+          end, {description = "Open neomutt", group = "launcher"})
+        ----------------------------------------------------------------------------
 
 )
 
