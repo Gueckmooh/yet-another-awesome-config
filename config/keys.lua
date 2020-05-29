@@ -405,6 +405,8 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- Super + Escape -> Lock
     awful.key({ modkey }, "Escape", function ()
+        local mpd = mpd.get_instance ()
+        awful.spawn.with_shell("mpc -p " .. mpd.port .. " pause")
         os.execute(vars.lock_command)
     end),
     -- Super + Shift + Escape -> Lock + suspend
