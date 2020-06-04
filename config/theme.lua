@@ -66,8 +66,9 @@ awful.rules.rules = {
                      keys = keys.clientkeys,
                      buttons = keys.clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
-     }
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+                     titlebars_enabled = false,
+      }
     },
 
     -- Floating clients.
@@ -98,14 +99,14 @@ awful.rules.rules = {
 
     -- Add titlebars to normal clients and dialogs
     { rule_any = {type = { "normal", "dialog" }
-      }, properties = { titlebars_enabled = true, size_hints_honor = false }
+                 }, properties = { titlebars_enabled = false, size_hints_honor = false }
     },
 
     -- { rule_any = {name = { "QuakeDD" }
     --   }, properties = { titlebars_enabled = false }
     -- },
 
-    { rule_any = {class = { "URxvt", "Emacs" }
+    { rule_any = {class = { "URxvt", "Emacs", "termite" }
                  }, properties = { size_hints_honor = false }
     },
 
