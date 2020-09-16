@@ -122,6 +122,11 @@ awful.rules.rules = {
     -- Set Firefox to always map on the tag named "2" on screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { screen = 1, tag = "2" } },
+    { -- teams popups
+      rule_any = { class = { "microsoft teams - preview" } },
+      properties = { focus = function (c) return nil end,
+                   floating = true }
+    },
 }
 
 client.connect_signal("manage", function (c)
