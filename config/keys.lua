@@ -11,7 +11,7 @@ local hotkeys_popup   = require ("awful.hotkeys_popup").widget
 local menu            = require ("config.menu")
 local layout          = require ("config.layout")
 local vars            = require ("config.vars")
-local APW             = require("apw/widget")
+local APW             = require ("apw/widget")
 local mpd             = require ("cuddly.widgets.wibox.mpd")
 local menubar         = require ("menubar")
 -- local pulseaudio      = require ("widget.pulseaudio")
@@ -351,7 +351,6 @@ keys.globalkeys = awful.util.table.join(
     awful.key({ }, "XF86AudioPrev",
       function ()
         local mpd = mpd.get_instance ()
-        local mpd = mpd.get_instance ()
         if mpd then
           mpd:prev()
         end
@@ -592,6 +591,18 @@ keys.clientkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
+    awful.key({ modkey, shiftkey  }, "n",
+        function (c)
+            -- The client currently has the input focus, so it cannot be
+          -- minimized, since minimized clients can't have the focus.
+          for _, cc in ipairs (awful.screen.focused().clients) do
+            if c ~= cc then cc.minimized = true end
+          end
+        end ,
+        {description = "minimize other", group = "client"}),
+    ----------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------------
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized = not c.maximized
@@ -605,7 +616,7 @@ keys.clientkeys = awful.util.table.join(
         function (c)
             awful.titlebar.toggle (c)
         end ,
-        {description = "maximize", group = "client"})
+        {description = "toggle titlebar", group = "client"})
     ----------------------------------------------------------------------------
 )
 
