@@ -26,6 +26,8 @@ local client          = client
 local root            = root
 local quake = require "cuddly.util.quake"
 
+local screenlayout_cmd = debug.getinfo(1, 'S').source:match[[^@(.*/).*$]] .. "scripts/screenlayout.sh"
+
 local keys = {}
 
 function spawn_async (cmd)
@@ -295,12 +297,12 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- Decrease backlight
     awful.key({ }, "XF86MonBrightnessDown", function ()
-        awful.spawn.with_shell ("/usr/bin/backlight - 7")
+        awful.spawn.with_shell (vars.deincrease_backlight_cmd)
                                             end,
       {description = "Decrease the screen backlight", group = "peripherals"}),
     --Increase backlight
     awful.key({ }, "XF86MonBrightnessUp", function ()
-        awful.spawn.with_shell ("/usr/bin/backlight + 7")
+        awful.spawn.with_shell (vars.increase_backlight_cmd)
                                           end,
       {description = "Increase the screen backlight", group = "peripherals"}),
     ----------------------------------------------------------------------------
@@ -490,6 +492,15 @@ keys.globalkeys = awful.util.table.join(
               exe_callback = translate.notify,
               history_path = awful.util.get_cache_dir() .. "/history_translate"
             }
+          end,
+          {description = "Translate query", group = "util"}),
+        ----------------------------------------------------------------------------
+
+        ----------------------------------------------------------------------------
+        -- Super + f8 -> screenlayout
+        awful.key({ modkey,  }, "F8",
+          function ()
+            awful.spawn.with_shell (screenlayout_cmd)
           end,
           {description = "Translate query", group = "util"}),
         ----------------------------------------------------------------------------

@@ -23,7 +23,7 @@ local awesome   = awesome
 
 theme.list_themes = {
     "powerarrow+",
-    "new-theme"
+    -- "new-theme"
 }
 
 theme.name = theme.list_themes[1]
