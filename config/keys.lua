@@ -11,7 +11,7 @@ local hotkeys_popup   = require ("awful.hotkeys_popup").widget
 local menu            = require ("config.menu")
 local layout          = require ("config.layout")
 local vars            = require ("config.vars")
-local APW             = require("apw/widget")
+local APW             = require ("apw/widget")
 local mpd             = require ("cuddly.widgets.wibox.mpd")
 local menubar         = require ("menubar")
 -- local pulseaudio      = require ("widget.pulseaudio")
@@ -25,6 +25,8 @@ local naughty = require "naughty"
 local client          = client
 local root            = root
 local quake = require "cuddly.util.quake"
+
+local screenlayout_cmd = debug.getinfo(1, 'S').source:match[[^@(.*/).*$]] .. "scripts/screenlayout.sh"
 
 local keys = {}
 
@@ -295,12 +297,12 @@ keys.globalkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
     -- Decrease backlight
     awful.key({ }, "XF86MonBrightnessDown", function ()
-        awful.spawn.with_shell ("/usr/bin/backlight - 7")
+        awful.spawn.with_shell (vars.deincrease_backlight_cmd)
                                             end,
       {description = "Decrease the screen backlight", group = "peripherals"}),
     --Increase backlight
     awful.key({ }, "XF86MonBrightnessUp", function ()
-        awful.spawn.with_shell ("/usr/bin/backlight + 7")
+        awful.spawn.with_shell (vars.increase_backlight_cmd)
                                           end,
       {description = "Increase the screen backlight", group = "peripherals"}),
     ----------------------------------------------------------------------------
@@ -350,7 +352,6 @@ keys.globalkeys = awful.util.table.join(
       {description = "Stop Music", group = "Music"}),
     awful.key({ }, "XF86AudioPrev",
       function ()
-        local mpd = mpd.get_instance ()
         local mpd = mpd.get_instance ()
         if mpd then
           mpd:prev()
@@ -496,6 +497,15 @@ keys.globalkeys = awful.util.table.join(
         ----------------------------------------------------------------------------
 
         ----------------------------------------------------------------------------
+        -- Super + f8 -> screenlayout
+        awful.key({ modkey,  }, "F8",
+          function ()
+            awful.spawn.with_shell (screenlayout_cmd)
+          end,
+          {description = "Translate query", group = "util"}),
+        ----------------------------------------------------------------------------
+
+        ----------------------------------------------------------------------------
         -- Super + z -> Show dropdown terminak
         awful.key({ modkey, }, "z", function ()
             -- if awful.screen.focused ().quake ~= nil then
@@ -592,6 +602,18 @@ keys.clientkeys = awful.util.table.join(
     ----------------------------------------------------------------------------
 
     ----------------------------------------------------------------------------
+    awful.key({ modkey, shiftkey  }, "n",
+        function (c)
+            -- The client currently has the input focus, so it cannot be
+          -- minimized, since minimized clients can't have the focus.
+          for _, cc in ipairs (awful.screen.focused().clients) do
+            if c ~= cc then cc.minimized = true end
+          end
+        end ,
+        {description = "minimize other", group = "client"}),
+    ----------------------------------------------------------------------------
+
+    ----------------------------------------------------------------------------
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized = not c.maximized
@@ -605,7 +627,7 @@ keys.clientkeys = awful.util.table.join(
         function (c)
             awful.titlebar.toggle (c)
         end ,
-        {description = "maximize", group = "client"})
+        {description = "toggle titlebar", group = "client"})
     ----------------------------------------------------------------------------
 )
 

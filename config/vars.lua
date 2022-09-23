@@ -38,4 +38,7 @@ vars.music_dir         = os.getenv ("HOME") .. "/Musique"
 
 vars.conky             = os.getenv ("HOME") .. '/.config/conky/conky.sh'
 
+vars.increase_backlight_cmd   = "/usr/bin/xbacklight +5"
+vars.deincrease_backlight_cmd = "/usr/bin/xbacklight -5"
+
 return vars

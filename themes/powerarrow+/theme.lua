@@ -565,8 +565,8 @@ theme.widgets.pulse_widget = pulse.factory ({}, theme).widget
 
 -------------------- {{{ Heat }}} ----------------------------------------------
 
-local temp = require ("widget.temperature")
-theme.widgets.temp_widget = temp.get_widget (theme)
+-- local temp = require ("widget.temperature")
+-- theme.widgets.temp_widget = temp.get_widget (theme)
 
 -------------------- {{{ End Heat }}} ------------------------------------------
 
