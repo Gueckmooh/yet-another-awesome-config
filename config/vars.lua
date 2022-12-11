@@ -20,6 +20,7 @@ vars.cores          = 4
 vars.battery        = "BAT0"
 vars.user           = os.getenv ("USER")
 vars.rofi           = "bash -c \"rofi -terminal " .. vars.terminal .. " -show "
+vars.suspend        = "systemctl suspend"
 
 vars.unclutter_command = "unclutter -root"
 vars.network_command   = "nm-applet"
@@ -38,7 +39,7 @@ vars.music_dir         = os.getenv ("HOME") .. "/Musique"
 
 vars.conky             = os.getenv ("HOME") .. '/.config/conky/conky.sh'
 
-vars.increase_backlight_cmd   = "/usr/bin/xbacklight +5"
-vars.deincrease_backlight_cmd = "/usr/bin/xbacklight -5"
+vars.increase_backlight_cmd   = "/usr/bin/backlight + 5"
+vars.deincrease_backlight_cmd = "/usr/bin/backlight - 5"
 
 return vars

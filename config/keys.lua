@@ -536,7 +536,12 @@ keys.globalkeys = awful.util.table.join(
         awful.key({ modkey, ctrlkey }, "m",
           function ()
             awful.spawn.with_shell(vars.terminal .. " -t Mailer -e neomutt")
-          end, {description = "Open neomutt", group = "launcher"})
+          end, {description = "Open neomutt", group = "launcher"}),
+        ----------------------------------------------------------------------------
+        awful.key({ modkey, ctrlkey }, "l",
+          function ()
+            awful.spawn.with_shell(vars.suspend)
+          end, {description = "Suspend", group = "launcher"})
         ----------------------------------------------------------------------------
 
 )
