@@ -127,6 +127,12 @@ awful.rules.rules = {
       properties = { focus = function (c) return nil end,
                    floating = true }
     },
+    {
+       rule_any = { class = { "renpy" } },
+       properties = {
+         floating = true,
+       },
+    },
 }
 
 client.connect_signal("manage", function (c)
